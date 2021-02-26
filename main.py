@@ -2,7 +2,7 @@ from qset_lib import Rover
 from grid import Grid
 import move
 import lidar
-#import dstar
+import dstar
 
 def main():
     rover = Rover()
@@ -16,10 +16,10 @@ def main():
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
 
     changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
-    print(grid.array)
-    print("hello world")
-    # dstar.compute(x_target, y_target)
-    # move.movement()
+    #print(grid.array)
+    #print (changed)
+    dstar.compute(x_target, y_target)
+    move.movement()
 
     
 main()
