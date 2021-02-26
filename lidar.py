@@ -15,6 +15,7 @@ def update_grid(x, y, heading, laser_distances, grid):
         # heading of 90 deg = +Y
         world_x = distance * math.cos(angle) + x
         world_y = distance * math.sin(angle) + y
+
         grid_x = int(round(world_x * grid.resolution))
         grid_y = int(round(world_y * grid.resolution))
         
@@ -26,9 +27,10 @@ def update_grid(x, y, heading, laser_distances, grid):
 
     return made_changes
 
-grid = Grid(99, 99, 0.5, default_value=0.0)
-changed = update_grid(0, 0, 0, range(15), grid)
-print(grid.array)
-print(changed)
-changed2 = update_grid(0, 0, 0, range(15), grid)
-print(changed2)
+def test():
+    grid = Grid(99, 99, 0.5, default_value=0.0)
+    changed = update_grid(0, 0, 0, range(15), grid)
+    print(grid.array)
+    print(changed)
+    changed2 = update_grid(0, 0, 0, range(15), grid)
+    print(changed2)
