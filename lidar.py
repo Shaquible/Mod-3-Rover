@@ -14,24 +14,18 @@ def update_grid(x, y, heading, laser_distances, grid):
             continue
         # heading of 0 deg = +X
         # heading of 90 deg = +Y
+        #gets world coordinates of the object
         world_x = distance * math.cos(angle) + x
         world_y = distance * math.sin(angle) + y
-
+        #rounds world coordinates to grid coordinates
         grid_x = int(round(world_x * grid.resolution))
         grid_y = int(round(world_y * grid.resolution))
-        
+        #compares old grid to lidar data to check for changes
         old = grid.get_coordinate(grid_x, grid_y)
         new = float('inf')
         if old != new:
+            #updates grid if there is a change
             grid.set_coordinate(grid_x, grid_y, new)
             made_changes = True
 
     return made_changes
-
-def test():
-    grid = Grid(99, 99, 0.5, default_value=0.0)
-    changed = update_grid(0, 0, 0, range(15), grid)
-    print(grid.array)
-    print(changed)
-    changed2 = update_grid(0, 0, 0, range(15), grid)
-    print(changed2)
