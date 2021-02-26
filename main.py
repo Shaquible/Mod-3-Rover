@@ -1,4 +1,5 @@
 from qset_lib import Rover
+from grid import Grid
 import move
 import lidar
 import dstar
@@ -13,8 +14,8 @@ def main():
     grid_height = 11
     grid_res = 0.5
     grid = Grid(grid_width, grid_height)
-    
-    lidar.updategrid(grid_res)
+
+    lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
     dstar.compute(x_target, y_target)
     move.movement()
 
