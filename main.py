@@ -17,7 +17,7 @@ def main():
 
     changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
     print(grid.array)
-    
+    print("hello world")
     # dstar.compute(x_target, y_target)
     # move.movement()
 
