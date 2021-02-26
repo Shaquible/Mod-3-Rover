@@ -1,4 +1,18 @@
 
+#
+# COORDINATE SYSTEMS:
+#
+# World coordinates are in meters, and are in the range (-inf, inf)
+# 
+# Grid coordinates are integers, and are in the range [-width/2, width/2] or [-height/2, height/2],
+# for x and y, respectively. They are resolution-dependent and can be negative.
+#
+# Array coordinates are integers, and are in the range [0, width) or [0, height), for x and y,
+# respectively. Array coordinates are handled in this class automatically, and shouldn't really
+# be used. Use grid coordinates and call this class's get_coordinate and set_coordinate methods.
+#
+
+
 # A Grid is a 2D array which can be accessed using negative coordinates.
 # A grid keeps its width, height, and resolution
 class Grid:
