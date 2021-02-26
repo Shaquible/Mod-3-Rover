@@ -2,7 +2,7 @@ from qset_lib import Rover
 from grid import Grid
 import move
 import lidar
-import dstar
+#import dstar
 
 def main():
     rover = Rover()
