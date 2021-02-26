@@ -17,10 +17,18 @@ def update_grid(x, y, heading, laser_distances, grid):
         world_y = distance * math.sin(angle) + y
         grid_x = int(round(world_x * grid.resolution))
         grid_y = int(round(world_y * grid.resolution))
-        grid.set_coordinate(grid_x, grid_y, float('inf'))
+        
+        old = grid.get_coordinate(grid_x, grid_y)
+        new = float('inf')
+        if old != new:
+            grid.set_coordinate(grid_x, grid_y, new)
+            made_changes = True
 
     return made_changes
 
 grid = Grid(99, 99, 0.5, default_value=0.0)
-update_grid(0, 0, 0, range(15), grid)
+changed = update_grid(0, 0, 0, range(15), grid)
 print(grid.array)
+print(changed)
+changed2 = update_grid(0, 0, 0, range(15), grid)
+print(changed2)

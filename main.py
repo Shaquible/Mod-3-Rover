@@ -15,7 +15,7 @@ def main():
     grid_res = 0.5
     grid = Grid(grid_width, grid_height)
 
-    lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
+    changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
     dstar.compute(x_target, y_target)
     move.movement()
 
