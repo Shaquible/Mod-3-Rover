@@ -9,3 +9,4 @@ rover.send_command(0,0)
 time.sleep(5)
 print(rover.x)
 
+#should use threading and wait to delay send commands but constantly check position to hault
