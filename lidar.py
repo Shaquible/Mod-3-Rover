@@ -10,7 +10,7 @@ def update_grid(x, y, heading, laser_distances, grid):
     for i, distance in enumerate(laser_distances):
         # angle is in radians
         angle = heading * math.pi / 180.0 + math.pi * (i - 7) / 28.0
-        if math.isinf(distance)
+        if math.isinf(distance):
             continue
         # heading of 0 deg = +X
         # heading of 90 deg = +Y
