@@ -6,6 +6,9 @@ class Grid:
         self.width = width
         self.height = height
 
-    def index(self, x, y):
+    def get_coordinate(self, x, y):
+        pass
+
+    def set_coordinate(self, x, y, val):
         pass
 
