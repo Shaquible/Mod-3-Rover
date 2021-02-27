@@ -31,3 +31,6 @@ def heuristics(s_x, s_y):
     
 def get_g(s1):
     pass
+
+def get_rhs(s):
+    pass
