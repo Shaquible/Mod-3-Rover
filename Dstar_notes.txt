@@ -55,7 +55,5 @@ increase k_m = k_m + h(s_last, s_start):
 	- <min[g(s), rhs(s)] + h(s, s_start) + k_m, min[g(s), rhs(s)]>
 
 _______
-- node list S is a list of tuples containing
-(x,y) for each element s 
-- 
+
 
