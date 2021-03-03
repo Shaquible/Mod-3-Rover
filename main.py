@@ -16,8 +16,10 @@ def main():
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
 
     changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
-    
-    dstar.compute(x_target, y_target)
+    if changed == True:
+        dstar.compute(x_target, y_target)
+    #update d* cue
+    #get next target from d*
     node_x = 6
     node_y = 8.5
     move.movement(node_x,node_y)
