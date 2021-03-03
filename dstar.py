@@ -1,7 +1,7 @@
 from qset_lib import Rover
 import lidar
 import math
-from queue import PriorityQueue
+from Queue import PriorityQueue
 
 
 rover=Rover()
@@ -13,7 +13,7 @@ def __init__(start_node,target_node):
     km = 0
     rhs = inf #0 for the goal node
 
-def computeKey(s, start_node)
+def computeKey(s, start_node):
     pass
     key1 = min(g[s],rhs[s]) + heuristics(start_node,s)+km
     key2 = min(g[s],rhs[s])
