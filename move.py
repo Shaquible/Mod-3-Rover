@@ -33,10 +33,10 @@ def movement(targetx, targety):
     #want to turn twice to readjust
     
     rover.send_command(0,-0.1 * angularv)
-    while round(rover.x, 1) != targetx && round(rover.y, 1) != targety:
+    while round(rover.x, 1) != targetx and round(rover.y, 1) != targety:
         rover.send_command(0.5,0)
         print(rover.x, rover.y)
-    rover.send_command(-0.1,0)
+    rover.send_command(-0.001,0)
 
     time.sleep(2)
     print(rover.x,rover.y,rover.heading)
