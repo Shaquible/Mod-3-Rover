@@ -4,8 +4,6 @@ import time
 rover = Rover()
 target = 10
 while round(rover.x, 1) < target -0.1:
-    
-    
     rover.send_command(0.415,0)
     print(rover.x)
 rover.send_command(0,0)
