@@ -1,11 +1,11 @@
-#from qset_lib import Rover
+from qset_lib import Rover
 import lidar
 import math
 from grid import Grid
 from queue import PriorityQueue
 
 
-#rover=Rover()
+rover=Rover()
 grid_edge_cost = 1
 
 def __init__(self,start,goal):
