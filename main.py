@@ -19,7 +19,9 @@ def main():
     #print(grid.array)
     #print (changed)
     dstar.compute(x_target, y_target)
-    move.movement()
+    node_x = 6
+    node_y = 8.5
+    move.movement(node_x,node_y)
 
     
 main()
