@@ -2,7 +2,7 @@ import math
 # will get next node in sequence from d*
 #use current position and target position to get neccacary heading
 #check current position against target to reach that position
-def move(targetx, targety)
+def movement(targetx, targety)
 #change heading
 #change target to actuall target from d*
 delta_x = targetx - rover.x
