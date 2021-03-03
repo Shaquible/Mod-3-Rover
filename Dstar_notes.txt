@@ -53,3 +53,6 @@ s_last -> s_start: All heuristics lowered by at most h(s_last, s_start)
 
 increase k_m = k_m + h(s_last, s_start):
 	- <min[g(s), rhs(s)] + h(s, s_start) + k_m, min[g(s), rhs(s)]>
+
+Pseudocode type stuff:
+
