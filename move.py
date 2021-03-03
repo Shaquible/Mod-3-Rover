@@ -17,7 +17,9 @@ def movement(targetx, targety):
             target_head = 90
     if delta_x != 0:
         target_head = 180/math.pi * math.atan(delta_y / delta_x)
+        #need to convert from 0 to 360 to the +/- format of rover
     angularv = 0.6
+    #this is not going to work wtih +/-
     if rover.heading > target_head:
         angularv = -1 * angularv
 
@@ -28,9 +30,10 @@ def movement(targetx, targety):
     rover.send_command(0,-0.0001)
     rover.send_command(0,0)
     time.sleep(2)
+    #want to turn twice to readjust
     
     rover.send_command(0,-0.1 * angularv)
-    while round(rover.x, 1) != targetx and round(rover.y, 1) != targety:
+    while round(rover.x, 1) != targetx && round(rover.y, 1) != targety:
         rover.send_command(0.5,0)
         print(rover.x, rover.y)
     rover.send_command(-0.1,0)
