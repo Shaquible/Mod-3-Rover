@@ -1,24 +1,27 @@
 #from qset_lib import Rover
 import lidar
 import math
+from grid import Grid
 from queue import PriorityQueue
 
 
 #rover=Rover()
 grid_edge_cost = 1
 
-def __init__(self,start,target):
+def __init__(self,start,goal):
     pass
     self.start = start
-    self.g = inf
+    self.goal = goal
+    self.g = float('inf')
     self.km = 0
-    self.rhs = inf #0 for the goal node
+    self.rhs = float('inf') #0 for the goal node
 
-def computeKey(s, start):
+def calculateKey(self,s):
     pass
-    key1 = min(g[s],rhs[s]) + heuristics(start,s)+km
-    key2 = min(g[s],rhs[s])
-    return key1,key2
+    key = [0,0]
+    key[0] = min(g[s],rhs[s]) + heuristics(self.start,s)+km
+    key[1] = min(g[s],rhs[s])
+    return key
 
 def compute(x, y):
     pass
@@ -31,7 +34,7 @@ def heuristics(s_x, s_y):
     #must be 0 for start node
     return node_final
     
-def get_g(s1):
+def get_g(s):
     pass
 
 def get_rhs(s):
