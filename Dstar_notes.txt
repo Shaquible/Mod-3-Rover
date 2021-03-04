@@ -57,3 +57,4 @@ increase k_m = k_m + h(s_last, s_start):
 _______
 
 
+left off at video 1:10 **reminder for daniel everyone else can ignore this :)
