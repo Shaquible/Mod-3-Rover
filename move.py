@@ -6,9 +6,9 @@ from qset_lib import Rover
 #check current position against target to reach that position
 #change heading
 #change target to actuall target from d*
-def heading(x, y)
+def heading(x, y):
     if x == 0:
-    heading = 0
+        heading = 0
     else:
         heading = 180/math.pi * math.atan(abs(y / x))
     if y <= 0 and x >= 0:
@@ -21,7 +21,7 @@ def heading(x, y)
 
 def movement(targetx, targety):
     rover = Rover()
-    for i in range 2:
+    for i in range (2):
         delta_x = targetx - rover.x
         delta_y = targety - rover.y
         target_head = heading(delta_x, delta_y)

@@ -7,8 +7,8 @@ import dstar
 def main():
     rover = Rover()
 
-    x_target = float(input("Target x coordinate: "))
-    y_target = float(input("Target y coordinate: "))
+    x_target = 4
+    y_target = 5
 
     grid_width = 11
     grid_height = 11
@@ -16,13 +16,13 @@ def main():
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
 
     changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
-    if changed == True:
-        dstar.compute(x_target, y_target)
+    #if changed == True:
+        #dstar.compute(x_target, y_target)
     #update d* cue
     #get next target from d*
     node_x = 6
     node_y = 8.5
-    move.movement(node_x,node_y)
+    move.movement(node_x, node_y)
 
     
 main()
