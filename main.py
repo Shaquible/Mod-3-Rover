@@ -2,7 +2,7 @@ from qset_lib import Rover
 from grid import Grid
 import move
 import lidar
-import dstar
+#import dstar
 
 def main():
     rover = Rover()
@@ -20,8 +20,8 @@ def main():
         #dstar.compute(x_target, y_target)
     #update d* cue
     #get next target from d*
-    node_x = 6
-    node_y = 8.5
+    node_x = 30.25
+    node_y = -20
     move.movement(node_x, node_y)
 
     
