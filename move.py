@@ -80,6 +80,7 @@ def movement(targetx, targety):
         rover.send_command(-0.02,0)
         #wait time to account for oversteer
         time.sleep(wait)
+        #maybe add a reverse function
     #wait to see how far any oversteer went
     time.sleep(2)
     print(rover.x,rover.y,rover.heading)
