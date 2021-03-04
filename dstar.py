@@ -23,7 +23,7 @@ def __init__(self,start,goal): #initialize starting values
 def computeKey(s, start_node):
     pass
     key = [0,0]
-    key[0] = min(g[s],rhs[s]) + heuristics(self.start,s)+km
+    key[0] = min(g[s],rhs[s]) + h(self.start,s)+km
     key[1] = min(g[s],rhs[s])
     return key
 
@@ -33,10 +33,12 @@ def update_change(x, y): #find shortest path
 #function to check for change in edge cost
 # if function return true, change K_m to be h(s) from the start to the goal (looped).
 
-def heuristics(s_x, s_y): #distance from current node to start.
+def heuristics(start, s2): #distance from current node to start.
     pass
-    node_x = abs(start_x - s_x)
-    node_y = abs(start_y - s_y)
+    x1, y1 = start
+    x2, y2 = s2
+    node_x = abs(x1 - x2)
+    node_y = abs(y1 - y2)
     node_final = math.sqrt((node_x**2)+(node_y**2))
     #must be 0 for start node
     return node_final
