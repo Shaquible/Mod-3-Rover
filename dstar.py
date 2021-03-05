@@ -38,16 +38,6 @@ def get_rhs(self, s, near):
 
 def update_change(self,u): #find shortest path
     pass
-    if u != self.goal:
-        nodes_near = self.neighbours(u)
-        lowest_cost = float('inf')
-        for s in nodes_near:
-            if self.cost(u,s) + self.g[s[0]][s[1]] < lowest_cost:
-                lowest_cost = self.cost(u,s) + self.g[s[0]][s[1]]
-        self.rhs[u[0]][u[1]]=lowest_cost
-    #check if u is in queue and if it is, remove it from queue
-    #then check if g(u) does NOT equal rhs(u) and add u to queue
-    
 #function to check for change in edge cost
 # if function return true, change K_m to be h(s) from the start to the goal (looped).
 
@@ -91,17 +81,15 @@ def neighbours(self,u):
 
 def update_vertex(s): #compare the g and rhs values for a node, check if node is on priority queue.
     pass
-    if g(s) != rhs(s):
-        if g(s) > rhs(s):
-            pass
-            #set values equal to eachother
-            #update all predecessors of s.
-            #over consistent
-        if g(s) < rhs(s):
-            pass
-            #set g(s) equal to inf
-            #update all predecessors of s and s itself.
-            #under consistent
+    if u != self.goal:
+        nodes_near = self.neighbours(u)
+        lowest_cost = float('inf')
+        for s in nodes_near:
+            if self.cost(u,s) + self.g[s[0]][s[1]] < lowest_cost:
+                lowest_cost = self.cost(u,s) + self.g[s[0]][s[1]]
+        self.rhs[u[0]][u[1]]=lowest_cost
+    #check if u is in queue and if it is, remove it from queue
+    #then check if g(u) does NOT equal rhs(u) and add u to queue
 
 def get_shortest_path():
     pass
