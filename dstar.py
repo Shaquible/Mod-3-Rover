@@ -1,7 +1,6 @@
 from qset_lib import Rover
 import lidar
 import math
-from Queue import PriorityQueue
 from grid import Grid
 from lidar import update_grid
 import heapq
@@ -14,9 +13,10 @@ grid_edge_cost = 1
 def __init__(self,start,goal): #initialize starting values
     pass
     self.start = start
-    self.postition = start
+    self.position = start
     self.goal = goal
     self.g = float('inf')
+    self.queue = []
     self.km = 0
     self.rhs = float('inf') #0 for the goal node
 
@@ -33,12 +33,14 @@ def update_change(x, y): #find shortest path
 #function to check for change in edge cost
 # if function return true, change K_m to be h(s) from the start to the goal (looped).
 
-def heuristics(s_x, s_y): #distance from current node to start.
+def heuristics(self,s): #distance from current node to start.
     pass
-    node_x = abs(start_x - s_x)
-    node_y = abs(start_y - s_y)
+    x1,y1 = self.start
+    x2,y2 = s
+    node_x = abs(x1-x2)
+    node_y = abs(y1-y2)
     node_final = math.sqrt((node_x**2)+(node_y**2))
-    #must be 0 for start node
+    
     return node_final
     
 def get_g(s): # gets g value (distance from goal to node) for node s 
@@ -47,6 +49,16 @@ def get_g(s): # gets g value (distance from goal to node) for node s
 
 def get_rhs(s): #gets rhs value for node s (same process as g value).
     pass
+
+#cost of movement from u to s
+def cost(u,s)
+    pass
+    #if the value at node u or s is inf (i.e obstacle is detected), cost is inf 
+    if(math.isinf(grid.get_coordinate(u[0],u[1])) or math.isinf(grid.get_coordinate(s[0],s[1]))
+    return float('inf')
+    #if empty node, cost 
+    else
+    return 1
 
 def pre(s): #finds predecessor node for current node s.
     pass
