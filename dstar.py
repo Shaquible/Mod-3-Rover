@@ -15,23 +15,39 @@ def __init__(self,start,goal,grid): #initialize starting values
     self.start = start
     self.position = start
     self.goal = goal
-    self.g = float('inf')
     self.queue = []
     self.km = 0
     self.grid = grid #world grid 
     self.nodes = [] #create list of nodes from grid?
-    self.rhs = float('inf') #0 for the goal node
+    #rhs 2d array same size as the nodes, filled with infinity initially
+    self.rhs = [[float('inf') for x in range(self.nodes)] for y in range(self.nodes[0])] #0 for the goal node
+    self.g = self.rhs.copy() #same as rhs
+    #default the rhs of the goal node to 0
+    self.rhs[self.goal[0]][self.goal[1]] = 0
 
 def computeKey(s, start_node):
     pass
     key = [0,0]
-    key[0] = min(g[s],rhs[s]) + heuristics(self.start,s)+km
+    key[0] = min(g[s],rhs[s]) + heuristics(self.start,s)+self.km
     key[1] = min(g[s],rhs[s])
     return key
 
-def update_change(x, y): #find shortest path
+def get_rhs(self, s, near):
     pass
 
+
+def update_change(self,u): #find shortest path
+    pass
+    if u != self.goal:
+        nodes_near = self.neighbours(u)
+        lowest_cost = float('inf')
+        for s in nodes_near:
+            if self.cost(u,s) + self.g[s[0]][s[1]] < lowest_cost:
+                lowest_cost = self.cost(u,s) + self.g[s[0]][s[1]]
+        self.rhs[u[0]][u[1]]=lowest_cost
+    #check if u is in queue and if it is, remove it from queue
+    #then check if g(u) does NOT equal rhs(u) and add u to queue
+    
 #function to check for change in edge cost
 # if function return true, change K_m to be h(s) from the start to the goal (looped).
 
@@ -44,13 +60,7 @@ def heuristics(self,s): #distance from current node to start.
     node_final = math.sqrt((node_x**2)+(node_y**2))
     
     return node_final
-    
-def get_g(s): # gets g value (distance from goal to node) for node s 
-    pass
 
-
-def get_rhs(s): #gets rhs value for node s (same process as g value).
-    pass
 
 #cost of movement from u to s
 def cost(self,u,s):
@@ -64,6 +74,7 @@ def cost(self,u,s):
     #if no obstacles, cost will be one
     else:
         return 1
+
 #look for successors or predecessors of node u
 def neighbours(self,u):
     pass
