@@ -51,7 +51,7 @@ def get_rhs(s): #gets rhs value for node s (same process as g value).
     pass
 
 #cost of movement from u to s
-def cost(u,s)
+def cost(u,s):
     pass
     #if the value at node u or s is inf (i.e obstacle is detected), cost is inf 
     if(math.isinf(grid.get_coordinate(u[0],u[1])) or math.isinf(grid.get_coordinate(s[0],s[1]))
