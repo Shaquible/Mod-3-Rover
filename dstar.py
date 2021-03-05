@@ -54,10 +54,10 @@ def get_rhs(s): #gets rhs value for node s (same process as g value).
 def cost(u,s):
     pass
     #if the value at node u or s is inf (i.e obstacle is detected), cost is inf 
-    if(math.isinf(grid.get_coordinate(u[0],u[1])) or math.isinf(grid.get_coordinate(s[0],s[1]))
+    if(math.isinf(grid.get_coordinate(u[0],u[1])) or math.isinf(grid.get_coordinate(s[0],s[1])):
         return float('inf')
     #if empty node, cost 
-    else
+    else:
         return 1
 
 def pre(s): #finds predecessor node for current node s.
