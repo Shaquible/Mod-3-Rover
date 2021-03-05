@@ -30,21 +30,55 @@ def __init__(self,start,goal): #initialize starting values
     self.open_set_hash = {start} #copy of queue with node only (to keep track of whats inside the queue)
     self.came_from = {} #list that stores all previous nodes in final path
     #rhs 2d array same size as the nodes, filled with infinity initially
-    self.rhs = [[float('inf') for x in range(self.nodes)] for y in range(self.nodes[0])] #0 for the goal node
-    self.g = self.rhs.copy() #same as rhs
+    #self.rhs = [[float('inf') for x in range(self.nodes)] for y in range(self.nodes[0])] #0 for the goal node
+    #self.g = self.rhs.copy() #same as rhs
+    self.rhs = {}
+    self.g = {}
     #default the rhs of the goal node to 0
     self.rhs[self.goal[0]][self.goal[1]] = 0
 
+def get_g(self,s):
+    pass
+    return self.g.get(s,float('inf'))
+
+def get_rhs(self,s):
+    pass
+    if node != self.goal:
+        return self.rhs.get(s,float('inf')) 
+    else:
+        return self.rhs.get(s,0)
+
 def get_shortest_path(self):
     pass
-    while not open_set.empty() and : #checks if the priority queue is empty or not
+    while not open_set.empty and get_g(self.start) < get_rhs(self.start):
+        u = open_set.get()[2]
+        key_old = open_set.get()[0]
+        key_new = computeKey(u)
+        s_list = neighbours(u)
+
+        if(key_old < key_new):
+            open_set.put(key_new)
+
+        elif(get_g(u) > get_rhs(u)):
+            get_g(u) = get_rhs(u)
+            open_set.remove(u)
+            
+            for s in s_list:
+                self.update_vertex(s)
+                
+        else:
+            get_g(u) = float('inf')
+            
+            s_list.append(u)
+            for s in s_list:
+                self.update_vertex(s)
 
 
-def computeKey(s, start_node):
+def computeKey(s):
     pass
     key = [0,0]
-    key[0] = min(g[s],rhs[s]) + heuristics(self.start,s)+self.km
-    key[1] = min(g[s],rhs[s])
+    key[0] = min(get_g(s),get_rhs(s)) + heuristics(self.start,s)+self.km
+    key[1] = min(get_g(s),get_rhs(s))
     return key
 
 def update_change(self): 
@@ -105,10 +139,10 @@ def update_vertex(u): #compare the g and rhs values for a node, check if node is
         #loop through all nodes s in the list of neighbours
         for s in nodes_near:
             #if the movement cost from u to s added to the g(s) is lower than predicted minimum cost
-            if self.cost(u,s) + self.g[s[0]][s[1]] < lowest_cost:
+            if self.cost(u,s) + self.get_g(s) < lowest_cost:
                 
                 #update lowest cost to be that sum
-                lowest_cost = self.cost(u,s) + self.g[s[0]][s[1]]
+                lowest_cost = self.cost(u,s) + self.get_g(s)
         
         #once the final lowest lookahead g(u) is found, update rhs 
         self.rhs[u[0]][u[1]]=lowest_cost
