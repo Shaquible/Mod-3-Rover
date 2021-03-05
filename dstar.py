@@ -4,11 +4,9 @@ import math
 from grid import Grid
 from lidar import update_grid
 import heapq
-from main import Main
 
 
 rover=Rover()
-q = PriorityQueue()
 grid_edge_cost = 1
 
 class Node:
