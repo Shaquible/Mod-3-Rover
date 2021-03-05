@@ -50,9 +50,31 @@ def get_rhs(self,s):
 
 def get_shortest_path(self):
     pass
-    while not open_set.empty:  
+    while not open_set.empty and get_g(self.start) < get_rhs(self.start):
+        u = open_set.get()[2]
+        key_old = open_set.get()[0]
+        key_new = computeKey(u)
+        s_list = neighbours(u)
 
-def computeKey(s, start_node):
+        if(key_old < key_new):
+            open_set.put(key_new)
+
+        elif(get_g(u) > get_rhs(u)):
+            get_g(u) = get_rhs(u)
+            open_set.remove(u)
+            
+            for s in s_list:
+                self.update_vertex(s)
+                
+        else:
+            get_g(u) = float('inf')
+            
+            s_list.append(u)
+            for s in s_list:
+                self.update_vertex(s)
+
+
+def computeKey(s):
     pass
     key = [0,0]
     key[0] = min(get_g(s),get_rhs(s)) + heuristics(self.start,s)+self.km
