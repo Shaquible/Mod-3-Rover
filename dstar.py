@@ -7,7 +7,7 @@ import heapq
 
 
 #rover=Rover()
-q = PriorityQueue()
+#q = PriorityQueue()
 grid_edge_cost = 1
 
 def __init__(self,start,goal,grid): #initialize starting values
