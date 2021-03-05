@@ -1,4 +1,4 @@
-from qset_lib import Rover
+#from qset_lib import Rover
 import lidar
 import math
 from grid import Grid
@@ -6,7 +6,7 @@ from lidar import update_grid
 import heapq
 
 
-rover=Rover()
+#rover=Rover()
 q = PriorityQueue()
 grid_edge_cost = 1
 
