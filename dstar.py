@@ -15,7 +15,7 @@ class Node:
         self.x = x
         self.y = y
 
-def __init__(self,start,goal): #initialize starting values
+def __init__(self,start,goal,world_grid): #initialize starting values
     pass
     self.start = start
     self.position = start
@@ -48,27 +48,29 @@ def get_rhs(self,s):
 
 def get_shortest_path(self):
     pass
+    #loop while queue is not empty and lowest key is less than start key or rhs does not equal g for start
     while not open_set.empty and get_g(self.start) < get_rhs(self.start):
-        u = open_set.get()[2]
-        key_old = open_set.get()[0]
-        key_new = computeKey(u)
-        s_list = neighbours(u)
+        u = open_set.get()[2] #get node lowest in queue
+        key_old = open_set.get()[0] #get lowest key
+        key_new = computeKey(u) #get key of u
+        s_list = neighbours(u) #neighbouring nodes
 
-        if(key_old < key_new):
-            open_set.put(key_new)
+        if(key_old < key_new): #if lowest key is less than key of u
+            open_set.put(key_new) #add new key to queue
 
-        elif(get_g(u) > get_rhs(u)):
-            get_g(u) = get_rhs(u)
-            open_set.remove(u)
-            
+        elif(get_g(u) > get_rhs(u)): #if overconsistent
+            get_g(u) = get_rhs(u) #set g and rhs equal
+            open_set.remove(u) #and remove u from queue
+          
+            #loop thru all nodes s in neighbours list
             for s in s_list:
-                self.update_vertex(s)
-                
+                self.update_vertex(s) #call update_vertex for each s
+        #when locally inconsistent        
         else:
-            get_g(u) = float('inf')
+            get_g(u) = float('inf') #g is inf
             
-            s_list.append(u)
-            for s in s_list:
+            s_list.append(u) #add u to neighbour list
+            for s in s_list: #loop thru neighbours and call update_vertex
                 self.update_vertex(s)
 
 
