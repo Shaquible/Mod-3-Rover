@@ -10,7 +10,7 @@ rover=Rover()
 q = PriorityQueue()
 grid_edge_cost = 1
 
-def __init__(self,start,goal): #initialize starting values
+def __init__(self,start,goal,grid): #initialize starting values
     pass
     self.start = start
     self.position = start
@@ -18,6 +18,8 @@ def __init__(self,start,goal): #initialize starting values
     self.g = float('inf')
     self.queue = []
     self.km = 0
+    self.grid = grid #world grid 
+    self.nodes = [] #create list of nodes from grid?
     self.rhs = float('inf') #0 for the goal node
 
 def computeKey(s, start_node):
@@ -51,20 +53,30 @@ def get_rhs(s): #gets rhs value for node s (same process as g value).
     pass
 
 #cost of movement from u to s
-def cost(u,s):
+def cost(self,u,s):
     pass
+    x1, y1 = u
+    x2,y2 = s
+    #note: this is temporary we prob have to check for obstacles another way
     #if the value at node u or s is inf (i.e obstacle is detected), cost is inf 
-    if(math.isinf(grid.get_coordinate(u[0],u[1])) or math.isinf(grid.get_coordinate(s[0],s[1])):
+    if(self.grid[x1][y1] == float('inf') or grid[x2][y2] == float('inf')):
         return float('inf')
-    #if empty node, cost 
+    #if no obstacles, cost will be one
     else:
         return 1
-
-def pre(s): #finds predecessor node for current node s.
+#look for successors or predecessors of node u
+def neighbours(self,u):
     pass
+    x,y = u
+    #list of all possible 8 neighbouring nodes
+    nodes_near = [(x-1,y-1),(x-1,y),(x-1,y+1),(x,y-1),(x,y+1),(x+1,y-1),(x+1,y),(x+1,y+1)]
+    filtered = []
+    #check if said neighbouring node exists in original node list
+    for s in nodes_near:
+        if s[0] >= 0 and s[0] < len(self.nodes) and s[1] >= 0 and s[1] < len(self.nodes[0]):
+            filtered.append(s) #if it does, add to a new list with only existing neighbours
+    return filtered #return the new list
 
-def suc(s): # find successor node for currne tnode s.
-    pass
 
 def update_vertex(s): #compare the g and rhs values for a node, check if node is on priority queue.
     pass
