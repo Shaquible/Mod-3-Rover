@@ -10,14 +10,14 @@ import heapq
 #q = PriorityQueue()
 grid_edge_cost = 1
 
-def __init__(self,start,goal,grid): #initialize starting values
+def __init__(self,start,goal,world_grid): #initialize starting values
     pass
     self.start = start
     self.position = start
     self.goal = goal
-    self.queue = []
+    self.queue = [] #dk about this for now
     self.km = 0
-    self.grid = grid #world grid 
+    self.world_grid = world_grid #world grid from main
     self.nodes = [] #create list of nodes from grid?
     #rhs 2d array same size as the nodes, filled with infinity initially
     self.rhs = [[float('inf') for x in range(self.nodes)] for y in range(self.nodes[0])] #0 for the goal node
@@ -81,13 +81,23 @@ def neighbours(self,u):
 
 def update_vertex(s): #compare the g and rhs values for a node, check if node is on priority queue.
     pass
+    #if we are not on the goal node
     if u != self.goal:
+        #get the neighbouring nodes of u
         nodes_near = self.neighbours(u)
         lowest_cost = float('inf')
+
+        #loop through all nodes s in the list of neighbours
         for s in nodes_near:
+            #if the movement cost from u to s added to the g(s) is lower than predicted minimum cost
             if self.cost(u,s) + self.g[s[0]][s[1]] < lowest_cost:
+                
+                #update lowest cost to be that sum
                 lowest_cost = self.cost(u,s) + self.g[s[0]][s[1]]
+        
+        #once the final lowest lookahead g(u) is found, update rhs 
         self.rhs[u[0]][u[1]]=lowest_cost
+    
     #check if u is in queue and if it is, remove it from queue
     #then check if g(u) does NOT equal rhs(u) and add u to queue
 
