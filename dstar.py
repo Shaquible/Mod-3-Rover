@@ -37,7 +37,8 @@ def __init__(self,start,goal): #initialize starting values
 
 def get_shortest_path(self):
     pass
-    while not open_set.empty:  
+    while not open_set.empty() and : #checks if the priority queue is empty or not
+
 
 def computeKey(s, start_node):
     pass
