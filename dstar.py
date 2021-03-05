@@ -32,10 +32,6 @@ def computeKey(s, start_node):
     key[1] = min(g[s],rhs[s])
     return key
 
-def get_rhs(self, s, near):
-    pass
-
-
 def update_change(self,u): #find shortest path
     pass
 #function to check for change in edge cost
