@@ -94,7 +94,7 @@ def neighbours(self,u):
     return filtered #return the new list
 
 
-def update_vertex(s): #compare the g and rhs values for a node, check if node is on priority queue.
+def update_vertex(u): #compare the g and rhs values for a node, check if node is on priority queue.
     pass
     #if we are not on the goal node
     if u != self.goal:
@@ -112,6 +112,12 @@ def update_vertex(s): #compare the g and rhs values for a node, check if node is
         
         #once the final lowest lookahead g(u) is found, update rhs 
         self.rhs[u[0]][u[1]]=lowest_cost
-    
+    self.open_set_hash # -> list of all nodes in queue
+    if u in open_set_hash:
+        open_set.remove(u)
+        open_set_hash.remove(u)
+        if get_g(u) != get_rhs(u):
+            open_set.put(u)
+            open_set_hash.put(u)
     #check if u is in queue and if it is, remove it from queue
     #then check if g(u) does NOT equal rhs(u) and add u to queue
