@@ -4,7 +4,7 @@ import move
 import lidar
 import dstar
 
-def main():
+def Main():
     rover = Rover()
 
     x_target = 4

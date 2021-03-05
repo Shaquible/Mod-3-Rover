@@ -1,16 +1,23 @@
-#from qset_lib import Rover
+from qset_lib import Rover
 import lidar
 import math
 from grid import Grid
 from lidar import update_grid
 import heapq
+from main import Main
 
 
-#rover=Rover()
-#q = PriorityQueue()
+rover=Rover()
+q = PriorityQueue()
 grid_edge_cost = 1
 
-def __init__(self,start,goal,world_grid): #initialize starting values
+class Node:
+    pass
+    def __init__(self, world_grid):
+        self.x = x
+        self.y = y
+
+def __init__(self,start,goal): #initialize starting values
     pass
     self.start = start
     self.position = start
@@ -19,11 +26,18 @@ def __init__(self,start,goal,world_grid): #initialize starting values
     self.km = 0
     self.world_grid = world_grid #world grid from main
     self.nodes = [] #create list of nodes from grid?
+    self.open_set = PriorityQueue(0, 0, start) #initialize priority queue with start node only
+    self.open_set_hash = {start} #copy of queue with node only (to keep track of whats inside the queue)
+    self.came_from = {} #list that stores all previous nodes in final path
     #rhs 2d array same size as the nodes, filled with infinity initially
     self.rhs = [[float('inf') for x in range(self.nodes)] for y in range(self.nodes[0])] #0 for the goal node
     self.g = self.rhs.copy() #same as rhs
     #default the rhs of the goal node to 0
     self.rhs[self.goal[0]][self.goal[1]] = 0
+
+def get_shortest_path(self):
+    pass
+    while not open_set.empty:  
 
 def computeKey(s, start_node):
     pass
@@ -32,8 +46,12 @@ def computeKey(s, start_node):
     key[1] = min(g[s],rhs[s])
     return key
 
-def update_change(self,u): #find shortest path
+def update_change(self): 
     pass
+    changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
+    if changed:
+        self.km = heuristics(self.goal)
+
 #function to check for change in edge cost
 # if function return true, change K_m to be h(s) from the start to the goal (looped).
 
@@ -96,7 +114,3 @@ def update_vertex(s): #compare the g and rhs values for a node, check if node is
     
     #check if u is in queue and if it is, remove it from queue
     #then check if g(u) does NOT equal rhs(u) and add u to queue
-
-def get_shortest_path():
-    pass
-
