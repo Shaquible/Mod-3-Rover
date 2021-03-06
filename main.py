@@ -23,6 +23,8 @@ def Main():
     node_x = 4
     node_y = 4
     move.movement(node_x, node_y)
-
+    node_x = -6
+    node_y = 7
+    move.movement(node_x, node_y)
     
 Main()
