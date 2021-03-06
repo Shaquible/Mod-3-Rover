@@ -18,8 +18,8 @@ def Main():
     changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
     if changed == True:
         dstar.compute(x_target, y_target)
-    update d* queue
-    get next target from d*
+    #update d* queue
+    #get next target from d*
     node_x = 4
     node_y = 4
     move.movement(node_x, node_y)

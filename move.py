@@ -85,6 +85,10 @@ def drive(targetx, targety, dx, dy):
         precision = 2
         v = 0.01
         wait = 0
+        total_d = max_x^2 + max_y^2
+        todal_d = total_d^(1/2)
+        if total_d > 10:
+            precision = 1
         if i == 0:
             precision = 0
             v = 0.75
