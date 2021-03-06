@@ -110,7 +110,7 @@ def movement(targetx, targety):
     while Drive == False:
         dx, dy = turn(targetx, targety)
         Drive = drive(targetx, targety, dx, dy)
-    #wait to see how far any oversteer went
+    #wait to see how far any oversteer went used for testing drive should be hashed off for actual use
     time.sleep(2)
     print(rover.x,rover.y,rover.heading)
 
