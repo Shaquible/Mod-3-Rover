@@ -10,6 +10,7 @@ from qset_lib import Rover
 def heading(x, y):
     if x == 0:
         heading = 0
+        float(heading)
         return heading
     else:
         heading = 180/math.pi * math.atan(abs(y / x))
@@ -23,8 +24,10 @@ def heading(x, y):
     if y >= 0 and x <= 0:
         heading = 180 - heading
         return heading
+    return heading
 #turns in 3 steps each of decreasing speed and increasing precision
-def turn(targetx, targety, i):
+def turn(targetx, targety):
+    rover = Rover()
     for i in range (3):
         delta_x = targetx - rover.x
         delta_y = targety - rover.y
@@ -39,16 +42,23 @@ def turn(targetx, targety, i):
         if i == 2:
             angularv = 0.05
             precision = 3
-        #tells rover which way to turn
-        if rover.heading >= 0 and target_head >= 0:
-            if rover.heading > target_head:
-                angularv = -1 * angularv
-        if rover.heading < 0 and target_head < 0:
-            if rover.heading > target_head:
-                angularv = -1 * angularv
-        if rover.heading < -90 and target_head > 90:
-            angularv = -1 * angularv
         while round(rover.heading, precision) != round(target_head, precision):
+            #tells rover which way to turn
+            cw = 0
+            if rover.heading > 0 and target_head > 0:
+                if rover.heading > target_head:
+                    angularv = -1 * abs(angularv)
+                    cw = 1
+            if rover.heading < 0 and target_head < 0:
+                if abs(rover.heading) < abs(target_head):
+                    cw = 1
+                    angularv = -1 * abs(angularv)
+            if rover.heading < -90 and target_head > 90:
+                angularv = -1 * abs(angularv)
+                cw = 1
+            if cw == 0:
+                angularv = abs(angularv)
+
             #turns rover
             rover.send_command(0, angularv)
             #used for debugging
@@ -60,43 +70,46 @@ def turn(targetx, targety, i):
         time.sleep(wait)
         #might not need this line
     rover.send_command(0,-0.1 * angularv)
+    delta_x = targetx - rover.x
+    delta_y = targety - rover.y
     return (delta_x, delta_y)
 
 def drive(targetx, targety, dx, dy):
-    initial_x = rover.x
-    initial_y = rover.y
+    rover = Rover()
+    """initial_x = rover.x
+    initial_y = rover.y"""
     #drives in 2 steps with decreasing speed once close enough to target
     for i in range (2):
         precision = 2
-        wait = 0
         v = 0.01
+        wait = 0
         if i == 0:
             precision = 0
-            wait = 1
             v = 0.75
+            wait = 0.5
         #moves rover forward and checks how close it is to the target position
         while round(rover.x, precision) != targetx or round(rover.y, precision) != targety:
-            rover.send_command(v,0)
+            rover.send_command(v, 0)
             #for debugging
-            print(rover.x, rover.y)
-            tx = rover.x - initial_x
+            print(rover.x, rover.y, i)
+            """tx = rover.x - initial_x
             ty = rover.y - initial_y
-            if tx > dx or ty > dy:
+            the ive gone too far does not work
+            if abs(tx) > abs(dx) + 0.1 or abs(ty) > abs(dy) + 0.1:
                 rover.send_command(-0.02, 0)
-                return False
-        rover.send_command(-0.02,0)
-        #wait time to account for oversteer
+                return False"""
+        
+        rover.send_command(-0.02, 0)
         time.sleep(wait)
-        return True, 1
-        #maybe add a reverse function
+
+    return True
 
 def movement(targetx, targety):
     rover = Rover()
     Drive = False
-    turn_number = 0
     while Drive == False:
-        dx, dy = turn(targetx, targety, turn_number)
-        Drive, turn_number = drive(targetx, targety, dx, dy)
+        dx, dy = turn(targetx, targety)
+        Drive = drive(targetx, targety, dx, dy)
     #wait to see how far any oversteer went
     time.sleep(2)
     print(rover.x,rover.y,rover.heading)
