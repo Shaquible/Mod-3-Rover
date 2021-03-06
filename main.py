@@ -19,7 +19,7 @@ def Main():
     if changed == True:
         dstar.compute(x_target, y_target)
     #update d* queue
-    get next target from d*
+    #get next target from d*
     node_x = 8
     node_y = -5
     move.movement(node_x, node_y)
