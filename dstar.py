@@ -60,18 +60,19 @@ def get_shortest_path(self):
                 self.update_vertex(s)
 
 
-def computeKey(s):
+def computeKey(self,s):
     pass
     key = [0,0]
     key[0] = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]]) + heuristics(self.start,s)+self.km
     key[1] = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]])
     return key
 
+
 def update_change(self): 
     pass
     changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
     if changed:
-        self.km = heuristics(self.goal)
+        self.km += heuristics(self.goal)
 
 #function to check for change in edge cost
 # if function return true, change K_m to be h(s) from the start to the goal (looped).
@@ -114,7 +115,7 @@ def neighbours(self,u):
     return filtered #return the new list
 
 
-def update_vertex(u): #compare the g and rhs values for a node, check if node is on priority queue.
+def update_vertex(self,u): #compare the g and rhs values for a node, check if node is on priority queue.
     pass
     #if we are not on the goal node
     if u != self.goal:
@@ -142,3 +143,14 @@ def update_vertex(u): #compare the g and rhs values for a node, check if node is
             open_set_hash.put(u)
     #check if u is in queue and if it is, remove it from queue
     #then check if g(u) does NOT equal rhs(u) and add u to queue
+
+def plan_path(self):
+    current = self.start
+    self.get_shortest_path()
+    while self.start != self.goal:
+        if(self.g[self.start[0]][self.start[1]]) == float('inf'):
+            #no path
+        
+        #change start to neighbouring node with lowest cost
+        #if there was a change in graph, set current = self.start
+        #call updatevertex and compute path functions
