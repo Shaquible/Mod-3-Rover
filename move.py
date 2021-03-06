@@ -76,10 +76,12 @@ def turn(targetx, targety):
 
 def drive(targetx, targety, dx, dy):
     rover = Rover()
-    """initial_x = rover.x
-    initial_y = rover.y"""
+    initial_x = rover.x
+    initial_y = rover.y
     #drives in 2 steps with decreasing speed once close enough to target
     for i in range (2):
+        max_x = abs(dx) + 0.3
+        max_y = abs(dy) + 0.3
         precision = 2
         v = 0.01
         wait = 0
@@ -92,12 +94,12 @@ def drive(targetx, targety, dx, dy):
             rover.send_command(v, 0)
             #for debugging
             print(rover.x, rover.y, i)
-            """tx = rover.x - initial_x
-            ty = rover.y - initial_y
-            the ive gone too far does not work
-            if abs(tx) > abs(dx) + 0.1 or abs(ty) > abs(dy) + 0.1:
+            #this may not work
+            traveledx = abs(rover.x - initial_x)
+            traveledy = abs(rover.y - initial_y)
+            if traveledx > max_x or traveledy > max_y:
                 rover.send_command(-0.02, 0)
-                return False"""
+                return False
         
         rover.send_command(-0.02, 0)
         time.sleep(wait)
