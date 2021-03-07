@@ -44,7 +44,7 @@ def get_shortest_path(self):
         if(key_old < key_new): #if lowest key is less than key of u
             open_set.put(key_new) #add new key to queue
 
-        elif(self.g[u[0]][u[1]] > self.rhs[u[0]][u[1]]: #if overconsistent
+        elif(self.g[u[0]][u[1]] > self.rhs[u[0]][u[1]]): #if overconsistent
             self.g[u[0]][u[1]] = self.rhs[u[0]][u[1]] #set g and rhs equal
             open_set.remove(u) #and remove u from queue
           
@@ -75,7 +75,7 @@ def update_change(self):
         self.km += heuristics(self.goal)
 
 #function to check for change in edge cost
-# if function return true, change K_m to be h(s) from the start to the goal (looped).
+#if function return true, change K_m to be h(s) from the start to the goal (looped).
 
 def heuristics(self,s): #distance from current node to start.
     pass
@@ -91,7 +91,7 @@ def heuristics(self,s): #distance from current node to start.
 #cost of movement from u to s
 def cost(self,u,s):
     pass
-    x1, y1 = u
+    x1,y1 = u
     x2,y2 = s
     #note: this is temporary we prob have to check for obstacles another way
     #if the value at node u or s is inf (i.e obstacle is detected), cost is inf 
@@ -145,6 +145,7 @@ def update_vertex(self,u): #compare the g and rhs values for a node, check if no
     #then check if g(u) does NOT equal rhs(u) and add u to queue
 
 def plan_path(self):
+    pass
     current = self.start
     self.get_shortest_path()
     while self.start != self.goal:
@@ -152,5 +153,10 @@ def plan_path(self):
             #no path
         
         #change start to neighbouring node with lowest cost
+            self.lowest_neighbour = ""     #still have to figure out how to get this, probs something to do with the queue 
+            self.start = lowest_neighbour
         #if there was a change in graph, set current = self.start
+        if lidar.made_changes:
+            current = self.start
         #call updatevertex and compute path functions
+        update_vertex(current)
