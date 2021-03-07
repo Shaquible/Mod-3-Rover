@@ -59,6 +59,8 @@ def get_shortest_path(self):
             for s in s_list: #loop thru neighbours and call update_vertex
                 self.update_vertex(s)
 
+            #at some point we have to add the current node to "came_from" in order to keep track of the nodes in the path
+
 
 def computeKey(self,s):
     pass
