@@ -7,8 +7,6 @@ import heapq
 from priority import PriorityQueue
 
 
-rover=Rover()
-
 #dk if we need a class for it but nodes list will be a 1d list with (x,y) pairs of same quantity as grid
 class Node:
 
