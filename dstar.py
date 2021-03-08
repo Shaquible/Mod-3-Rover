@@ -4,7 +4,7 @@ import math
 from grid import Grid
 from lidar import update_grid
 import heapq
-from Queue import PriorityQueue
+from priority import PriorityQueue
 
 
 rover=Rover()
@@ -27,9 +27,9 @@ def __init__(self,start,goal,world_grid): #initialize starting values
 
     self.nodes = [] #create list of nodes from grid?
     
-    self.open_set = PriorityQueue(0, 0, start) #initialize priority queue with start node only
-    self.open_set_hash = {start} #copy of queue with node only (to keep track of whats inside the queue)
-    self.came_from = {} #list that stores all previous nodes in final path
+    self.open_set = PriorityQueue() #initialize priority queue with start node only
+    self.open_set.put(self.goal,computeKey(self.goal)) #copy of queue with node only (to keep track of whats inside the queue)
+    #self.came_from = {} #list that stores all previous nodes in final path
     self.rhs = [[float('inf') for x in range(len(self.world_grid[0]))] for y in range(len(self.world_grid))] #2d array same as world grid but with infinity values
     self.g = self.rhs.copy()
     self.rhs[self.goal[0]][self.goal[1]] = 0
@@ -38,18 +38,17 @@ def __init__(self,start,goal,world_grid): #initialize starting values
 def get_shortest_path(self):
     pass
     #loop while queue is not empty and lowest key is less than start key or rhs does not equal g for start
-    while not open_set.empty and self.g[self.start[0]][self.start[1]] < self.rhs[self.start[0]][self.start[1]]:
-        u = open_set.get()[2] #get node lowest in queue
-        key_old = open_set.get()[0] #get lowest key
+    while not self.open_set.empty() and self.open_set.first_key() < self.computeKey(self.start) or self.g[self.start[0]][self.start[1]] < self.rhs[self.start[0]][self.start[1]]:
+        key_old = self.open_set.first_key() #get node lowest in queue
+        u = self.open_set.pop()#get lowest key
         key_new = computeKey(u) #get key of u
         s_list = neighbours(u) #neighbouring nodes
 
         if(key_old < key_new): #if lowest key is less than key of u
-            open_set.put(key_new) #add new key to queue
+            self.open_set.put(u,key_new) #add new key to queue
 
         elif(self.g[u[0]][u[1]] > self.rhs[u[0]][u[1]]): #if overconsistent
             self.g[u[0]][u[1]] = self.rhs[u[0]][u[1]] #set g and rhs equal
-            open_set.remove(u) #and remove u from queue
           
             #loop thru all nodes s in neighbours list
             for s in s_list:
@@ -71,7 +70,6 @@ def computeKey(self,s):
     key[0] = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]]) + heuristics(self.start,s)+self.km
     key[1] = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]])
     return key
-
 
 
 #function to check for change in edge cost
@@ -133,16 +131,14 @@ def update_vertex(self,u): #compare the g and rhs values for a node, check if no
         
         #once the final lowest lookahead g(u) is found, update rhs 
         self.rhs[u[0]][u[1]]=lowest_cost
-    self.open_set_hash # -> list of all nodes in queue
+   
     if u in open_set_hash:
-        open_set.remove(u)
-        open_set_hash.remove(u)
+        self.open_set.delete(u)
 
     if self.g[u[0]][u[1]] != self.rhs[u[0]][u[1]]:
-            open_set.put(u)
-            open_set_hash.put(u)
-    #check if u is in queue and if it is, remove it from queue
-    #then check if g(u) does NOT equal rhs(u) and add u to queue
+        self.open_set.put(u,computeKey(u))
+           
+
 
 def plan_path(self):
     pass
@@ -159,7 +155,7 @@ def plan_path(self):
                 min_node = s
 
         self.start = min_node.copy()
-
+       
         #move rover to this point
         #if there was a change in graph, set current = self.start
         if lidar.made_changes:
