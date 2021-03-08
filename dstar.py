@@ -1,4 +1,4 @@
-#from qset_lib import Rover
+from qset_lib import Rover
 import lidar
 import math
 from grid import Grid
@@ -7,7 +7,7 @@ import heapq
 from priority import PriorityQueue
 
 
-#rover=Rover()
+rover=Rover()
 
 #dk if we need a class for it but nodes list will be a 1d list with (x,y) pairs of same quantity as grid
 class Node:
