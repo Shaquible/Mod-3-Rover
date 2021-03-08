@@ -70,18 +70,13 @@ def computeKey(self,s):
     return key
 
 
-def update_change(self): 
-    pass
-    changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
-    if changed:
-        self.km += heuristics(self.goal)
 
 #function to check for change in edge cost
 #if function return true, change K_m to be h(s) from the start to the goal (looped).
 
-def heuristics(self,s): #distance from current node to start.
+def heuristics(self,s,position): #distance from current node to start.
     pass
-    x1,y1 = self.start
+    x1,y1 = position
     x2,y2 = s
     node_x = abs(x1-x2)
     node_y = abs(y1-y2)
@@ -151,14 +146,23 @@ def plan_path(self):
     current = self.start
     self.get_shortest_path()
     while self.start != self.goal:
-        if(self.g[self.start[0]][self.start[1]]) == float('inf'):
-            #no path
         
         #change start to neighbouring node with lowest cost
-            self.lowest_neighbour = ""     #still have to figure out how to get this, probs something to do with the queue 
-            self.start = lowest_neighbour
+        s_list = self.neighbours(self.start)
+        min_neighbour = float('inf')
+        for s in s_list:
+            if self.cost(self.start,s) + self.g[s[0]][s[1]] < min_neighbour:
+                min_neighbour = self.cost(self.start,s) + self.g[s[0]][s[1]]
+                min_node = s
+
+        self.start = min_node.copy()
+        #move rover to this point
         #if there was a change in graph, set current = self.start
         if lidar.made_changes:
+            self.km += heuristics(current,self.start)
             current = self.start
-        #call updatevertex and compute path functions
-        update_vertex(current)
+            #go thru all nodes with changes then update vertex for each?
+            self.update_vertex()
+
+        
+            self.get_shortest_path()
