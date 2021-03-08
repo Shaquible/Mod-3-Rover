@@ -1,4 +1,4 @@
-from qset_lib import Rover
+#from qset_lib import Rover
 import lidar
 import math
 from grid import Grid
@@ -7,17 +7,17 @@ import heapq
 from priority import PriorityQueue
 
 
-rover=Rover()
+#rover=Rover()
 
 #dk if we need a class for it but nodes list will be a 1d list with (x,y) pairs of same quantity as grid
 class Node:
-    pass
+
     def __init__(self, world_grid):
         self.x = x
         self.y = y
 
 def __init__(self,start,goal,world_grid): #initialize starting values
-    pass
+
     self.start = start
     self.position = start
     self.goal = goal
@@ -36,7 +36,7 @@ def __init__(self,start,goal,world_grid): #initialize starting values
     
 
 def get_shortest_path(self):
-    pass
+    
     #loop while queue is not empty and lowest key is less than start key or rhs does not equal g for start
     while not self.open_set.empty() and self.open_set.first_key() < self.computeKey(self.start) or self.g[self.start[0]][self.start[1]] < self.rhs[self.start[0]][self.start[1]]:
         key_old = self.open_set.first_key() #get node lowest in queue
@@ -65,7 +65,7 @@ def get_shortest_path(self):
 
 
 def computeKey(self,s):
-    pass
+   # pass
     key = [0,0]
     key[0] = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]]) + heuristics(self.start,s)+self.km
     key[1] = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]])
@@ -76,7 +76,7 @@ def computeKey(self,s):
 #if function return true, change K_m to be h(s) from the start to the goal (looped).
 
 def heuristics(self,s,position): #distance from current node to start.
-    pass
+    #pass
     x1,y1 = position
     x2,y2 = s
     node_x = abs(x1-x2)
@@ -88,7 +88,7 @@ def heuristics(self,s,position): #distance from current node to start.
 
 #cost of movement from u to s
 def cost(self,u,s):
-    pass
+   # pass
     x1,y1 = u
     x2,y2 = s
     #note: this is temporary we prob have to check for obstacles another way
@@ -101,7 +101,7 @@ def cost(self,u,s):
 
 #look for successors or predecessors of node u
 def neighbours(self,u):
-    pass
+   # pass
     x,y = u
     #list of all possible 8 neighbouring nodes
     nodes_near = [(x-1,y-1),(x-1,y),(x-1,y+1),(x,y-1),(x,y+1),(x+1,y-1),(x+1,y),(x+1,y+1)]
@@ -114,7 +114,7 @@ def neighbours(self,u):
 
 
 def update_vertex(self,u): #compare the g and rhs values for a node, check if node is on priority queue.
-    pass
+    #pass
     #if we are not on the goal node
     if u != self.goal:
         #get the neighbouring nodes of u
@@ -141,7 +141,7 @@ def update_vertex(self,u): #compare the g and rhs values for a node, check if no
 
 
 def plan_path(self):
-    pass
+    #pass
     current = self.start
     self.get_shortest_path()
     while self.start != self.goal:
