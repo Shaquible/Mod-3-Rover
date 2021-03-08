@@ -4,6 +4,7 @@ import math
 from grid import Grid
 from lidar import update_grid
 import heapq
+from Queue import PriorityQueue
 
 
 rover=Rover()
@@ -20,10 +21,12 @@ def __init__(self,start,goal,world_grid): #initialize starting values
     self.start = start
     self.position = start
     self.goal = goal
-    self.queue = [] #dk about this for now
+    
     self.km = 0
     self.world_grid = world_grid #world grid from main
+
     self.nodes = [] #create list of nodes from grid?
+    
     self.open_set = PriorityQueue(0, 0, start) #initialize priority queue with start node only
     self.open_set_hash = {start} #copy of queue with node only (to keep track of whats inside the queue)
     self.came_from = {} #list that stores all previous nodes in final path
@@ -156,13 +159,14 @@ def plan_path(self):
                 min_node = s
 
         self.start = min_node.copy()
+
         #move rover to this point
         #if there was a change in graph, set current = self.start
         if lidar.made_changes:
             self.km += heuristics(current,self.start)
             current = self.start
             #go thru all nodes with changes then update vertex for each?
-            self.update_vertex()
+            self.update_vertex(current)
 
         
             self.get_shortest_path()
