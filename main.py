@@ -1,6 +1,7 @@
 from qset_lib import Rover
 from grid import Grid
 import move
+import math
 import lidar
 from dstar import DStar
 
@@ -9,14 +10,15 @@ def Main():
 
     x_target = 4
     y_target = 5
-
+    
     grid_width = 11
     grid_height = 11
     grid_res = 0.5
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
-
-    start_node = (1,1)
-    goal_node = (2,2)
+    startx = round(rover.x)
+    starty = round(rover.y)
+    start_node = (startx + grid_width/2, starty + grid_height/2)
+    goal_node = (x_target + grid_width/2, y_target + grid_height/2)
 
     dlite = DStar(start_node,goal_node,grid)
 
