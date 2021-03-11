@@ -16,10 +16,10 @@ class DStar:
         self.km = 0
         self.world_grid = world_grid #world grid from main
         self.open_set = PriorityQueue() #initialize priority queue with start node only
-        self.open_set.put(self.goal,self.computeKey(self.goal)) #copy of queue with node only (to keep track of whats inside the queue)
-        self.rhs = [[float('inf') for x in range(len(self.world_grid[0]))] for y in range(len(self.world_grid))] #2d array same as world grid but with infinity values
-        self.g = self.rhs.copy()
+        self.rhs = [[float('inf') for x in range (len(self.world_grid[0]))] for y in range (len(self.world_grid))] #2d array same as world grid but with infinity values
+        self.g = [[float('inf') for x in range (len(self.world_grid[0]))] for y in range (len(self.world_grid))]
         self.rhs[self.goal[0]][self.goal[1]] = 0
+        self.open_set.put(self.goal,self.computeKey(self.goal)) #copy of queue with node only (to keep track of whats inside the queue)
         
 
     def get_shortest_path(self):
@@ -119,7 +119,7 @@ class DStar:
             self.open_set.put(u,self.computeKey(u))
             
 
-    def plan_path(self):
+    """def plan_path(self):
         #pass
         current = self.start
         self.get_shortest_path()
@@ -147,4 +147,4 @@ class DStar:
                 current = self.start
                 #go thru all nodes with changes then update vertex for each?
                 self.update_vertex(current)
-            self.get_shortest_path()
+            self.get_shortest_path()"""

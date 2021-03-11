@@ -15,12 +15,12 @@ def Main():
     grid_height = 11
     grid_res = 0.5
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
-    startx = round(rover.x)
-    starty = round(rover.y)
+    startx = int(rover.x)
+    starty = int(rover.y)
     start_node = (startx + grid_width/2, starty + grid_height/2)
     goal_node = (x_target + grid_width/2, y_target + grid_height/2)
-
-    dlite = DStar(start_node,goal_node,grid)
+    
+    dlite = DStar(start_node,goal_node,grid.array)
 
 
     current = dlite.start
@@ -37,7 +37,7 @@ def Main():
                 min_neighbour = dlite.cost(dlite.start,s) + dlite.g[s[0]][s[1]]
                 min_node = s
 
-        dlite.start = min_node.copy()
+        dlite.start = min_node
         path.append(dlite.start) #add to path
         #get x and y coordinates from node
         x = dlite.start[0] - int(len(dlite.world_grid[0])/2)
