@@ -6,30 +6,17 @@ from lidar import update_grid
 import heapq
 from priority import PriorityQueue
 
-
 #rover=Rover()
-
-#dk if we need a class for it but nodes list will be a 1d list with (x,y) pairs of same quantity as grid
-class Node:
-
-    def __init__(self, world_grid):
-        self.x = x
-        self.y = y
 
 def __init__(self,start,goal,world_grid): #initialize starting values
 
     self.start = start
     self.position = start
     self.goal = goal
-    
     self.km = 0
     self.world_grid = world_grid #world grid from main
-
-    self.nodes = [] #create list of nodes from grid?
-    
     self.open_set = PriorityQueue() #initialize priority queue with start node only
     self.open_set.put(self.goal,computeKey(self.goal)) #copy of queue with node only (to keep track of whats inside the queue)
-    #self.came_from = {} #list that stores all previous nodes in final path
     self.rhs = [[float('inf') for x in range(len(self.world_grid[0]))] for y in range(len(self.world_grid))] #2d array same as world grid but with infinity values
     self.g = self.rhs.copy()
     self.rhs[self.goal[0]][self.goal[1]] = 0
@@ -61,16 +48,12 @@ def get_shortest_path(self):
             for s in s_list: #loop thru neighbours and call update_vertex
                 self.update_vertex(s)
 
-            #at some point we have to add the current node to "came_from" in order to keep track of the nodes in the path
-
 
 def computeKey(self,s):
    # pass
-    key = [0,0]
-    key[0] = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]]) + heuristics(self.start,s)+self.km
-    key[1] = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]])
-    return key
-
+    key1 = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]]) + heuristics(self.start,s)+self.km
+    key2 = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]])
+    return (key1,key2)
 
 #function to check for change in edge cost
 #if function return true, change K_m to be h(s) from the start to the goal (looped).
@@ -108,10 +91,9 @@ def neighbours(self,u):
     filtered = []
     #check if said neighbouring node exists in original node list
     for s in nodes_near:
-        if s[0] >= 0 and s[0] < len(self.nodes) and s[1] >= 0 and s[1] < len(self.nodes[0]):
+        if s[0] >= 0 and s[0] < len(self.world_grid[0]) and s[1] >= 0 and s[1] < len(self.world_grid):
             filtered.append(s) #if it does, add to a new list with only existing neighbours
     return filtered #return the new list
-
 
 def update_vertex(self,u): #compare the g and rhs values for a node, check if node is on priority queue.
     #pass
@@ -125,7 +107,6 @@ def update_vertex(self,u): #compare the g and rhs values for a node, check if no
         for s in nodes_near:
             #if the movement cost from u to s added to the g(s) is lower than predicted minimum cost
             if self.cost(u,s) + self.g[s[0]][s[1]] < lowest_cost:
-                
                 #update lowest cost to be that sum
                 lowest_cost = self.cost(u,s) + self.g[s[0]][s[1]]
         
@@ -138,7 +119,6 @@ def update_vertex(self,u): #compare the g and rhs values for a node, check if no
     if self.g[u[0]][u[1]] != self.rhs[u[0]][u[1]]:
         self.open_set.put(u,computeKey(u))
            
-
 
 def plan_path(self):
     #pass
@@ -155,14 +135,16 @@ def plan_path(self):
                 min_node = s
 
         self.start = min_node.copy()
-       
-        #move rover to this point
+
+        #get x and y coordinates from node
+        x = self.start[0] - int(len(self.world_grid[0])/2)
+        y = self.start[1] - int(len(self.world_grid)/2)
+        #MOVE rover to this point
+
         #if there was a change in graph, set current = self.start
         if lidar.made_changes:
             self.km += heuristics(current,self.start)
             current = self.start
             #go thru all nodes with changes then update vertex for each?
             self.update_vertex(current)
-
-        
             self.get_shortest_path()
