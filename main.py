@@ -17,8 +17,8 @@ def Main():
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
     startx = int(rover.x)
     starty = int(rover.y)
-    start_node = (startx + grid_width/2, starty + grid_height/2)
-    goal_node = (x_target + grid_width/2, y_target + grid_height/2)
+    start_node = (startx + int(grid_width/2), starty + int(grid_height/2))
+    goal_node = (x_target + int(grid_width/2), y_target + int(grid_height/2))
     
     dlite = DStar(start_node,goal_node,grid.array)
 

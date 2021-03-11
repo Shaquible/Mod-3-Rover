@@ -1,0 +1,2 @@
+lidar lin 21 and 22 i think it should be divided by grid resolution
+i think we need to divide by grid res in main when converting start and target nodes
