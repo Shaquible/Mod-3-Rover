@@ -9,7 +9,7 @@ from qset_lib import Rover
 #changes angle from 0-360 to the +/-180 of the rover heading
 def heading(x, y):
     if x == 0:
-        heading = 0
+        heading = 90
         float(heading)
         return heading
     else:
@@ -80,13 +80,13 @@ def drive(targetx, targety, dx, dy):
     """initial_x = rover.x
     initial_y = rover.y"""
     #drives in 2 steps with decreasing speed once close enough to target
-    for i in range (2):
+    for j in range (2):
         """max_x = abs(dx) + 0.3
         max_y = abs(dy) + 0.3"""
         precision = 1
         v = 0.01
         wait = 0
-        if i == 0:
+        if j == 0:
             precision = 0
             v = 0.75
             wait = 0.5
@@ -94,7 +94,7 @@ def drive(targetx, targety, dx, dy):
         while round(rover.x, precision) != targetx or round(rover.y, precision) != targety:
             rover.send_command(v, 0)
             #for debugging
-            print(rover.x, rover.y, i, targetx, targety)
+            print(rover.x, rover.y, j, targetx, targety)
             #this may not work
             """traveledx = abs(rover.x - initial_x)
             traveledy = abs(rover.y - initial_y)

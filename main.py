@@ -54,6 +54,6 @@ def Main():
             current = dlite.start
             #go thru all nodes with changes then update vertex for each?
             dlite.update_vertex(current)
-            dlite.get_shortest_path()
+        dlite.get_shortest_path()
     
 Main()
