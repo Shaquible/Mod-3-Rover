@@ -8,11 +8,11 @@ from dstar import DStar
 def Main():
     rover = Rover()
 
-    x_target = 4
-    y_target = 5
+    x_target = -4
+    y_target = 2
     
-    grid_width = 11
-    grid_height = 11
+    grid_width = 33
+    grid_height = 33
     grid_res = 0.5
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
     startx = int(rover.x)
