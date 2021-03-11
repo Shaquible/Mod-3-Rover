@@ -16,7 +16,7 @@ def __init__(self,start,goal,world_grid): #initialize starting values
     self.km = 0
     self.world_grid = world_grid #world grid from main
     self.open_set = PriorityQueue() #initialize priority queue with start node only
-    self.open_set.put(self.goal,computeKey(self.goal)) #copy of queue with node only (to keep track of whats inside the queue)
+    self.open_set.put(self.goal,self.computeKey(self.goal)) #copy of queue with node only (to keep track of whats inside the queue)
     self.rhs = [[float('inf') for x in range(len(self.world_grid[0]))] for y in range(len(self.world_grid))] #2d array same as world grid but with infinity values
     self.g = self.rhs.copy()
     self.rhs[self.goal[0]][self.goal[1]] = 0
