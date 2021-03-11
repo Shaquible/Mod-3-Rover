@@ -28,7 +28,7 @@ def heading(x, y):
 #turns in 3 steps each of decreasing speed and increasing precision
 def turn(targetx, targety):
     rover = Rover()
-    for i in range (3):
+    for i in range(3):
         delta_x = targetx - rover.x
         delta_y = targety - rover.y
         target_head = heading(delta_x, delta_y)
@@ -42,6 +42,7 @@ def turn(targetx, targety):
         if i == 2:
             angularv = 0.05
             precision = 3
+            wait = 0
         while round(rover.heading, precision) != round(target_head, precision):
             #tells rover which way to turn
             cw = 0
@@ -62,7 +63,7 @@ def turn(targetx, targety):
             #turns rover
             rover.send_command(0, angularv)
             #used for debugging
-            print(rover.heading, i, target_head)
+            print(rover.heading, target_head, i)
         #stops over steer
         rover.send_command(0,-0.001*angularv)
         rover.send_command(0,0)
@@ -82,7 +83,7 @@ def drive(targetx, targety, dx, dy):
     for i in range (2):
         """max_x = abs(dx) + 0.3
         max_y = abs(dy) + 0.3"""
-        precision = 2
+        precision = 1
         v = 0.01
         wait = 0
         if i == 0:
@@ -93,7 +94,7 @@ def drive(targetx, targety, dx, dy):
         while round(rover.x, precision) != targetx or round(rover.y, precision) != targety:
             rover.send_command(v, 0)
             #for debugging
-            print(rover.x, rover.y, i)
+            print(rover.x, rover.y, i, targetx, targety)
             #this may not work
             """traveledx = abs(rover.x - initial_x)
             traveledy = abs(rover.y - initial_y)
