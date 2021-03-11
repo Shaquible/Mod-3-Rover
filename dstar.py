@@ -1,4 +1,4 @@
-#from qset_lib import Rover
+from qset_lib import Rover
 import lidar
 import math
 from grid import Grid
@@ -6,7 +6,17 @@ from lidar import update_grid
 import heapq
 from priority import PriorityQueue
 
+<<<<<<< HEAD
 #rover=Rover()
+=======
+
+#dk if we need a class for it but nodes list will be a 1d list with (x,y) pairs of same quantity as grid
+class Node:
+
+    def __init__(self, world_grid):
+        self.x = x
+        self.y = y
+>>>>>>> 26b56b8adcced6a3263d454b0460b7bcd23c76a1
 
 def __init__(self,start,goal,world_grid): #initialize starting values
 
