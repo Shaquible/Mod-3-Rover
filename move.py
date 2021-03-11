@@ -75,8 +75,6 @@ def turn(targetx, targety):
         rover.send_command(0,0)
         #defines time to wait between angle computations to account for oversteer
         time.sleep(wait)
-        #might not need this line
-    rover.send_command(0,-0.1 * angularv)
     delta_x = targetx - rover.x
     delta_y = targety - rover.y
     return (delta_x, delta_y)
@@ -109,8 +107,8 @@ def movement(targetx, targety):
         dx, dy = turn(targetx, targety)
         Drive = drive(targetx, targety, dx, dy)
     #wait to see how far any oversteer went used for testing drive should be hashed off for actual use
-    time.sleep(2)
-    print(rover.x,rover.y,rover.heading)
+    #time.sleep(2)
+    #print(rover.x,rover.y,rover.heading)
 
 
 
