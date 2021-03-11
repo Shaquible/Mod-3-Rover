@@ -9,7 +9,10 @@ from qset_lib import Rover
 #changes angle from 0-360 to the +/-180 of the rover heading
 def heading(x, y):
     if x == 0:
-        heading = 90
+        if y > 0:
+            heading = 90
+        if y < 0:
+            heading = -90
         float(heading)
         return heading
     else:
@@ -54,6 +57,9 @@ def turn(targetx, targety):
                 if abs(rover.heading) < abs(target_head):
                     cw = 1
                     angularv = -1 * abs(angularv)
+            if 0 < rover.heading < 90 and 0 > target_head > -90:
+                cw = 1
+                angularv = -1 * abs(angularv)
             if rover.heading < -90 and target_head > 90:
                 angularv = -1 * abs(angularv)
                 cw = 1
@@ -91,7 +97,7 @@ def drive(targetx, targety, dx, dy):
             rover.send_command(v, 0)
             #for debugging
             print(rover.x, rover.y, j, targetx, targety)
-        rover.send_command(-0.02, 0)
+        rover.send_command(-0.00002, 0)
         time.sleep(wait)
 
     return True
