@@ -2,7 +2,7 @@ from qset_lib import Rover
 from grid import Grid
 import move
 import lidar
-import dstar
+from dstar import DStar
 
 def Main():
     rover = Rover()
@@ -27,5 +27,9 @@ def Main():
     node_x = -6
     node_y = 7
     move.movement(node_x, node_y)
+
+    start_node = (1,1)
+    goal_node = (2,2)
+    dlite = DStar(start_node,goal_node,grid)
     
 Main()
