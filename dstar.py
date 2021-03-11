@@ -6,17 +6,7 @@ from lidar import update_grid
 import heapq
 from priority import PriorityQueue
 
-<<<<<<< HEAD
 #rover=Rover()
-=======
-
-#dk if we need a class for it but nodes list will be a 1d list with (x,y) pairs of same quantity as grid
-class Node:
-
-    def __init__(self, world_grid):
-        self.x = x
-        self.y = y
->>>>>>> 26b56b8adcced6a3263d454b0460b7bcd23c76a1
 
 def __init__(self,start,goal,world_grid): #initialize starting values
 
@@ -38,8 +28,8 @@ def get_shortest_path(self):
     while not self.open_set.empty() and self.open_set.first_key() < self.computeKey(self.start) or self.g[self.start[0]][self.start[1]] < self.rhs[self.start[0]][self.start[1]]:
         key_old = self.open_set.first_key() #get node lowest in queue
         u = self.open_set.pop()#get lowest key
-        key_new = computeKey(u) #get key of u
-        s_list = neighbours(u) #neighbouring nodes
+        key_new = self.computeKey(u) #get key of u
+        s_list = self.neighbours(u) #neighbouring nodes
 
         if(key_old < key_new): #if lowest key is less than key of u
             self.open_set.put(u,key_new) #add new key to queue
@@ -61,7 +51,7 @@ def get_shortest_path(self):
 
 def computeKey(self,s):
    # pass
-    key1 = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]]) + heuristics(self.start,s)+self.km
+    key1 = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]]) + self.heuristics(self.start,s)+self.km
     key2 = min(self.g[s[0]][s[1]],self.rhs[s[0]][s[1]])
     return (key1,key2)
 
@@ -123,11 +113,10 @@ def update_vertex(self,u): #compare the g and rhs values for a node, check if no
         #once the final lowest lookahead g(u) is found, update rhs 
         self.rhs[u[0]][u[1]]=lowest_cost
    
-    if u in open_set_hash:
-        self.open_set.delete(u)
+    self.open_set.delete(u)
 
     if self.g[u[0]][u[1]] != self.rhs[u[0]][u[1]]:
-        self.open_set.put(u,computeKey(u))
+        self.open_set.put(u,self.computeKey(u))
            
 
 def plan_path(self):
@@ -153,8 +142,8 @@ def plan_path(self):
 
         #if there was a change in graph, set current = self.start
         if lidar.made_changes:
-            self.km += heuristics(current,self.start)
+            self.km += self.heuristics(current,self.start)
             current = self.start
             #go thru all nodes with changes then update vertex for each?
             self.update_vertex(current)
-            self.get_shortest_path()
+        self.get_shortest_path()
