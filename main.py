@@ -24,21 +24,25 @@ def Main():
     goal_node = x_target+ int(grid_width/2),y_target+int(grid_height/2)
     dlite = DStar(start_node,goal_node,grid.array)
 
-
     current = dlite.start
-    dlite.get_shortest_path()
+    sensed = dlite.sensed 
+    n_list = dlite.sense_map(3)
+    changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
+    print(changed)
+    if changed == True:
+        dlite.km += dlite.computeKeyheuristics(current,dlite.start)
+        current = dlite.start
+        for n in n_list:
+            if(dlite.sensed[n[0]][n[1]] != dlite.world_grid[n[0]][n[1]]):
+                dlite.sensed[n[0]][n[1]] = dlite.world_grid[n[0]][n[1]]
+                dlite.update_vertex(n)
+        dlite.get_shortest_path()
+
     path = [dlite.start] # list of path nodes for testing
+    dlite.get_shortest_path()
     
     while dlite.start != dlite.goal:
-                #call update_grid
-        changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
         
-        #if there was a change in graph, set current = self.start
-        if changed:
-            dlite.km += dlite.heuristics(current,dlite.start)
-            current = dlite.start
-            #go thru all nodes with changes then update vertex for each?
-            dlite.update_vertex(current)
         #change start to neighbouring node with lowest cost
         s_list = dlite.neighbours(dlite.start)
         min_neighbour = float('inf')
@@ -48,14 +52,28 @@ def Main():
                 min_node = s
 
         dlite.start = min_node
-        path.append(dlite.start) #add to path
+        
+        #move the rover to x and y
         #get x and y coordinates from node
         x = (dlite.start[0] - int(len(dlite.world_grid[0])/2)) * grid_res
         y = (dlite.start[1] - int(len(dlite.world_grid)/2)) * grid_res
-        #move the rover to x and y
+        
         move.movement(x,y)
+        path.append(dlite.start) #add to path
+                #call update_grid
+        changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
+        sensed.append(dlite.sensed)
+        #if there was a change in graph, set current = self.start
+        print(changed) 
+        if changed == True:
+            dlite.km += dlite.heuristics(current,dlite.start)
+            current = dlite.start
+            for n in n_list:
+                if(dlite.sensed[n[0]][n[1]] != dlite.world_grid[n[0]][n[1]]):
+                    dlite.sensed[n[0]][n[1]] = dlite.world_grid[n[0]][n[1]]
+                    dlite.update_vertex(n)
+            dlite.get_shortest_path()
 
         dlite.get_shortest_path()
         print(path)
-    
 Main()
