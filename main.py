@@ -30,7 +30,15 @@ def Main():
     path = [dlite.start] # list of path nodes for testing
     
     while dlite.start != dlite.goal:
-            
+                #call update_grid
+        changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
+        
+        #if there was a change in graph, set current = self.start
+        if changed:
+            dlite.km += dlite.heuristics(current,dlite.start)
+            current = dlite.start
+            #go thru all nodes with changes then update vertex for each?
+            dlite.update_vertex(current)
         #change start to neighbouring node with lowest cost
         s_list = dlite.neighbours(dlite.start)
         min_neighbour = float('inf')
@@ -47,15 +55,6 @@ def Main():
         #move the rover to x and y
         move.movement(x,y)
 
-        #call update_grid
-        changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
-        
-        #if there was a change in graph, set current = self.start
-        if changed:
-            dlite.km += dlite.heuristics(current,dlite.start)
-            current = dlite.start
-            #go thru all nodes with changes then update vertex for each?
-            dlite.update_vertex(current)
         dlite.get_shortest_path()
         print(path)
     
