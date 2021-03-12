@@ -7,13 +7,14 @@ from dstar import DStar
 
 def Main():
     rover = Rover()
-
+    #user adjustable perameters
     x_target = 2
     y_target = 2
-    
+
     grid_width = 33
     grid_height = 33
     grid_res = 0.5
+    #intializes grid and sets target position in array coordinates
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
     startx = int(rover.x)
     starty = int(rover.y)

@@ -32,9 +32,11 @@ def heading(x, y):
 def turn(targetx, targety):
     rover = Rover()
     for i in range(3):
+        #gathers target heading
         delta_x = targetx - rover.x
         delta_y = targety - rover.y
         target_head = heading(delta_x, delta_y)
+        #sets perameters for each turn step
         angularv = 2
         wait = 0.5
         precision = 0
