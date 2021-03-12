@@ -20,8 +20,8 @@ def Main():
     starty = int((rover.y) / grid_res)
     x_target = int((x_target) / grid_res)
     y_target = int((y_target) / grid_res)
-    start_node = startx+(grid_width/2),starty+(grid_height/2)
-    goal_node = x_target+(grid_width/2),y_target+(grid_height/2)
+    start_node = startx+ int(grid_width/2),starty+ int(grid_height/2)
+    goal_node = x_target+ int(grid_width/2),y_target+int(grid_height/2)
     dlite = DStar(start_node,goal_node,grid.array)
 
 
@@ -57,5 +57,6 @@ def Main():
             #go thru all nodes with changes then update vertex for each?
             dlite.update_vertex(current)
         dlite.get_shortest_path()
+        print(path)
     
 Main()
