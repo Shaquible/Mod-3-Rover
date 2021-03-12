@@ -18,8 +18,8 @@ def update_grid(x, y, heading, laser_distances, grid):
         world_x = distance * math.cos(angle) + x
         world_y = distance * math.sin(angle) + y
         #rounds world coordinates to grid coordinates
-        grid_x = int(round(world_x * grid.resolution))
-        grid_y = int(round(world_y * grid.resolution))
+        grid_x = int(round(world_x / grid.resolution))
+        grid_y = int(round(world_y / grid.resolution))
         #compares old grid to lidar data to check for changes
         old = grid.get_coordinate(grid_x, grid_y)
         new = float('inf')

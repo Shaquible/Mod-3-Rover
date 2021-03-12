@@ -46,6 +46,7 @@ def turn(targetx, targety):
             angularv = 0.05
             precision = 3
             wait = 0
+
         while round(rover.heading, precision) != round(target_head, precision):
             #tells rover which way to turn
             cw = 0
@@ -90,6 +91,9 @@ def drive(targetx, targety, dx, dy):
             precision = 0
             v = 0.75
             wait = 0.5
+        if abs(targetx - rover.x) < 1 and abs(targety - rover.y) < 1:
+            precision = 1
+            v = 0.05
         #moves rover forward and checks how close it is to the target position
         while round(rover.x, precision) != targetx or round(rover.y, precision) != targety:
             rover.send_command(v, 0)

@@ -13,12 +13,12 @@ def Main():
     
     grid_width = 33
     grid_height = 33
-    grid_res = 0.5
+    grid_res = 0.25
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
     startx = int(rover.x)
     starty = int(rover.y)
-    start_node = (startx + int(grid_width/2), starty + int(grid_height/2))
-    goal_node = (x_target + int(grid_width/2), y_target + int(grid_height/2))
+    start_node = (int(startx / grid_res + int(grid_width/2)), int(starty /grid_res + int(grid_height/2)))
+    goal_node = (int(x_target / grid_res + int(grid_width/2)), int(y_target / grid_res + int(grid_height/2)))
     
     dlite = DStar(start_node,goal_node,grid.array)
 
@@ -40,8 +40,8 @@ def Main():
         dlite.start = min_node
         path.append(dlite.start) #add to path
         #get x and y coordinates from node
-        x = dlite.start[0] - int(len(dlite.world_grid[0])/2)
-        y = dlite.start[1] - int(len(dlite.world_grid)/2)
+        x = (dlite.start[0] - int(len(dlite.world_grid[0])/2)) * grid_res
+        y = (dlite.start[1] - int(len(dlite.world_grid)/2)) * grid_res
         #move the rover to x and y
         move.movement(x,y)
 
