@@ -89,10 +89,14 @@ def drive(targetx, targety, dx, dy):
         wait = 0
         if j == 0:
             precision = 0
+            if math.floor(targetx) != targetx and math.floor(targety) != targety:
+                precision += 1
+                v = 0.2
             v = 0.75
-            wait = 0.5
+            wait = 0
+        
         #moves rover forward and checks how close it is to the target position
-        while round(rover.x, precision) != targetx or round(rover.y, precision) != targety:
+        while round(rover.x, precision) != (targetx) or round(rover.y, precision) != (targety):
             rover.send_command(v, 0)
             #for debugging
             print(rover.x, rover.y, j, targetx, targety)
