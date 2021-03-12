@@ -20,7 +20,7 @@ class DStar:
         self.g = [[float('inf') for x in range (len(self.world_grid[0]))] for y in range (len(self.world_grid))]
         self.rhs[self.goal[0]][self.goal[1]] = 0
         self.open_set.put(self.goal,self.computeKey(self.goal)) #copy of queue with node only (to keep track of whats inside the queue)
-        
+        self.sensed = [[0 for x in range (len(self.world_grid[0]))] for y in range (len(self.world_grid))]
 
     def get_shortest_path(self):
         
@@ -76,11 +76,11 @@ class DStar:
         x2,y2 = s
         #note: this is temporary we prob have to check for obstacles another way
         #if the value at node u or s is inf (i.e obstacle is detected), cost is inf 
-        if(self.world_grid[x1][y1] == float('inf') or self.world_grid[x2][y2] == float('inf')):
+        if(self.sensed[x1][y1] == float('inf') or self.sensed[x2][y2] == float('inf')):
             return float('inf')
         #if no obstacles, cost will be one
         else:
-            return 1
+            return self.heuristics(u,s)
 
     #look for successors or predecessors of node u
     def neighbours(self,u):
@@ -118,6 +118,17 @@ class DStar:
         if self.g[u[0]][u[1]] != self.rhs[u[0]][u[1]]:
             self.open_set.put(u,self.computeKey(u))
             
+    def sense_map(self,span):
+        nodes_sensed = []
+        row = len(self.world_grid)
+        col = len(self.world_grid[0])
+
+        for i in range (-span,span+1):
+            for j in range(-span,span+1):
+                if(self.start[0]+i >=0 and self.start[0]+i < row and self.start[1] + j >= 0 and self.start[1] + j < col):
+                    if not (i == 0 and j == 0):
+                        nodes_sensed.append((self.start[0]+i,self.start[1]+j))
+        return nodes_sensed
 
     """def plan_path(self):
         #pass
