@@ -27,5 +27,5 @@ def update_grid(x, y, heading, laser_distances, grid):
             #updates grid if there is a change
             grid.set_coordinate(grid_x, grid_y, new)
             made_changes = True
-
+            print(grid_x)
     return made_changes
