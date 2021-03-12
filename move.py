@@ -17,7 +17,6 @@ def heading(x, y):
         return heading
     else:
         heading = 180/math.pi * math.atan(abs(y / x))
-        print (heading)
     if y <= 0 and x >= 0:
         heading = -1 * heading
         return heading
@@ -41,11 +40,11 @@ def turn(targetx, targety):
         wait = 0.5
         precision = 0
         if i == 1:
-            angularv = 0.2
+            angularv = 0.8
             wait = 1
             precision = 1
         if i == 2:
-            angularv = 0.05
+            angularv = 0.1
             precision = 3
             wait = 0
 
@@ -80,30 +79,32 @@ def turn(targetx, targety):
         time.sleep(wait)
     delta_x = targetx - rover.x
     delta_y = targety - rover.y
+    time.sleep(0.2)
     return (delta_x, delta_y)
 
 def drive(targetx, targety, dx, dy):
     rover = Rover()
     #drives in 2 steps with decreasing speed once close enough to target
     for j in range (2):
-        precision = 1
-        v = 0.01
-        wait = 0
+        if targetx % 1 != 0 and targety % 1 != 0:
+            precision = 1
+            v = 0.2
+        if j == 1:
+            precision = 1
+            v = 0.01
+        
         if j == 0:
             precision = 0
-            if math.floor(targetx) != targetx and math.floor(targety) != targety:
-                precision += 1
-                v = 0.2
             v = 0.75
-            wait = 0
-        
+        if targetx % 1 != 0 and targety % 1 != 0:
+            precision = 1
+          
         #moves rover forward and checks how close it is to the target position
-        while round(rover.x, precision) != (targetx) or round(rover.y, precision) != (targety):
+        while round(rover.x, precision) != round(targetx, precision) or round(rover.y, precision) != round(targety, precision):
             rover.send_command(v, 0)
             #for debugging
             print(rover.x, rover.y, j, targetx, targety)
         rover.send_command(-0.00002, 0)
-        time.sleep(wait)
 
     return True
 
