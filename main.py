@@ -13,7 +13,7 @@ def Main():
     
     grid_width = 33
     grid_height = 33
-    grid_res = 0.25
+    grid_res = 0.5
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
     startx = int(rover.x)
     starty = int(rover.y)
