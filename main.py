@@ -10,16 +10,18 @@ def Main():
     #user adjustable perameters
     x_target = 9
     y_target = 6
-
+    
     grid_width = 51
     grid_height = 51
     grid_res = 1
     #intializes grid and sets target position in array coordinates
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
-    startx = int(rover.x)
-    starty = int(rover.y)
-    start_node = (int(startx / grid_res + int(grid_width/2)), int(starty /grid_res + int(grid_height/2)))
-    goal_node = (int(x_target / grid_res + int(grid_width/2)), int(y_target / grid_res + int(grid_height/2)))
+    startx = int((rover.x) / grid_res)
+    starty = int((rover.y) / grid_res)
+    x_target = int((x_target) / grid_res)
+    y_target = int((y_target) / grid_res)
+    start_node = grid.get_coordinate(startx, starty)
+    goal_node = grid.get_coordinate(x_target, y_target)
     
     dlite = DStar(start_node,goal_node,grid.array)
 
