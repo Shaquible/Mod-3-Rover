@@ -1,6 +1,7 @@
 import csv
 
 def csv(grid):
-    with open(grid1.csv, 'w') as csvfile:
-        csvwrite = csv.writter(csvfile)
+    filename = gird1.csv
+    with open(filename, 'w') as csvfile:
+        csvwriter = csv.writter(csvfile)
         csvwriter.writerows(grid)
