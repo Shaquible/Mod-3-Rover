@@ -24,12 +24,12 @@ def Main():
     y_target = int((y_target) / grid_res)
     start_node = startx+ int(grid_width/2),starty+ int(grid_height/2)
     goal_node = x_target+ int(grid_width/2),y_target+int(grid_height/2)
-    dlite = DStar(start_node,goal_node,grid)
+    dlite = DStar(start_node, goal_node, grid)
 
     current = dlite.start
     sensed = dlite.sensed 
     n_list = dlite.sense_map(3)
-    changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
+    changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
     #THIS RETURNS FALSE WHEN THE FIRST OBSTACLE IS CLOSE TO THE ROVER 
     print(changed)
 

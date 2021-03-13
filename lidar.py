@@ -4,7 +4,7 @@ from grid import Grid
 
 # update_grid will read the lidar array and update the grid in place
 # It will return True if any changes were actually made, and False otherwise
-def update_grid(x, y, heading, laser_distances, grid):
+def update_grid(x, y, heading, laser_distances, grid, grid_resolution):
     made_changes = False
 
     for i, distance in enumerate(laser_distances):
@@ -20,8 +20,8 @@ def update_grid(x, y, heading, laser_distances, grid):
         world_x = distance * math.cos(angle) + x
         world_y = distance * math.sin(angle) + y
         #rounds world coordinates to grid coordinates
-        grid_x = int(world_x / grid.resolution) + int(len(grid[0]) / 2)
-        grid_y = int(world_y / grid.resolution) + int(len(grid) / 2)
+        grid_x = int(world_x / grid_resolution) + int(len(grid[0]) / 2)
+        grid_y = int(world_y / grid_resolution) + int(len(grid) / 2)
         #compares old grid to lidar data to check for changes
         old = grid[grid_x][grid_y]
         new = float('inf')
