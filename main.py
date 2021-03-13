@@ -12,11 +12,11 @@ def Main():
     rover.send_command(0,0)
     time.sleep(0.1)
     #user adjustable perameters
-    x_target = 4
+    x_target = 0
     y_target = 4
     
-    grid_width = 51
-    grid_height = 51
+    grid_width = 11
+    grid_height = 11
     grid_res = 1
     #intializes grid and sets target position in array coordinates
     grid = [[0.0 for x in range(grid_width)] for y in range(grid_height)]
@@ -33,13 +33,13 @@ def Main():
     changed = False
 
     # this will do a full 360 and scan the area around the rover
-    while rover.heading < 180:
+    while 0 < rover.heading < 180:
         just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
         if just_changed:
             changed = True
         rover.send_command(0, 1)
         print(rover.heading)
-    while round(rover.heading) != 0.0:
+    while rover.heading < 0:
         just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
         if just_changed:
             changed = True
@@ -56,14 +56,14 @@ def Main():
     print(changed)
 
     #ignore this, mainly for testing
-    """if changed == True:
-        dlite.km += dlite.computeKeyheuristics(current,dlite.start)
+    if changed == True:
+        dlite.km += dlite.heuristics(current,dlite.start)
         current = dlite.start
         for n in n_list:
             if(dlite.sensed[n[0]][n[1]] != dlite.world_grid[n[0]][n[1]]):
                 dlite.sensed[n[0]][n[1]] = dlite.world_grid[n[0]][n[1]]
                 dlite.update_vertex(n)
-        dlite.get_shortest_path()"""
+        dlite.get_shortest_path()
 
     path = [dlite.start] # list of path nodes for testing
     dlite.get_shortest_path()

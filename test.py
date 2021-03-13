@@ -3,8 +3,8 @@ import csvoutput
 import lidar
 import time
 rover = Rover()
-grid_width = 51
-grid_height = 51
+grid_width = 11
+grid_height = 11
 grid_res = 0.5
 rover.send_command(0,0)
 time.sleep(0.1)
