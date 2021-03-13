@@ -1,7 +1,6 @@
 import csv
-from grid import Grid
-def read(grid, grid_height):
+def read(grid):
     with open('grid.csv', 'w') as csvfile:
         csvwriter = csv.writer(csvfile)
-        out = grid.array
+        out = grid
         csvwriter.writerows(out)

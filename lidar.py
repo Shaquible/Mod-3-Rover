@@ -1,5 +1,5 @@
 import math
-from grid import Grid
+
 
 
 # update_grid will read the lidar array and update the grid in place
