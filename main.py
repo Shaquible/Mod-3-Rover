@@ -4,7 +4,7 @@ import move
 import math
 import lidar
 from dstar import DStar
-
+import csvoutput
 def Main():
     rover = Rover()
     #user adjustable perameters
@@ -73,7 +73,7 @@ def Main():
                     dlite.sensed[n[0]][n[1]] = dlite.world_grid[n[0]][n[1]]
                     dlite.update_vertex(n)
             dlite.get_shortest_path()
-
+        csvoutput.csv
         dlite.get_shortest_path()
         print(path)
 Main()

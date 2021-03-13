@@ -1,6 +1,6 @@
 
 import numpy
-from grid import Grid
+"""from grid import Grid
 import lidar
 from qset_lib import Rover
 rover = Rover()
@@ -13,4 +13,8 @@ changed = lidar.update_grid(rover.y, rover.y, rover.heading, rover.laser_distanc
 print(changed)
 print(grid)
 arr = numpy.asarray(grid)
-arr.tofile('grid1.csv', sep = ',')
+arr.tofile('grid1.csv', sep = ',')"""
+
+def csv(grid):
+    arr = numpy.asarray(grid)
+    arr.tofile('grid1.csv', sep = ',')
