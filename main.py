@@ -33,14 +33,18 @@ def Main():
     changed = False
 
     # this will do a full 360 and scan the area around the rover
-    while round(rover.heading, 1) != 0:
+    while rover.heading < 180:
         just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
         if just_changed:
             changed = True
         rover.send_command(0, 1)
         print(rover.heading)
-        if round(rover.heading, 0) == 0:
-            break
+    while round(rover.heading) != 0.0:
+        just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
+        if just_changed:
+            changed = True
+        rover.send_command(0, 1)
+        print(rover.heading)
     
     rover.send_command(0, -0.001)
     rover.send_command(0, 0)
