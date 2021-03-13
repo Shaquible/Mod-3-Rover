@@ -13,7 +13,7 @@ def Main():
     
     grid_width = 51
     grid_height = 51
-    grid_res = 1
+    grid_res = 0.5
     #intializes grid and sets target position in array coordinates
     grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
     startx = int((rover.x) / grid_res)
@@ -28,7 +28,10 @@ def Main():
     sensed = dlite.sensed 
     n_list = dlite.sense_map(3)
     changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
+    #THIS RETURNS FALSE WHEN THE FIRST OBSTACLE IS CLOSE TO THE ROVER 
     print(changed)
+
+    #ignore this, mainly for testing
     if changed == True:
         dlite.km += dlite.computeKeyheuristics(current,dlite.start)
         current = dlite.start
@@ -62,10 +65,12 @@ def Main():
         path.append(dlite.start) #add to path
                 #call update_grid
         changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
-        csvoutput.read(grid, grid_height)
+        #csvoutput.read(grid, grid_height)
         sensed.append(dlite.sensed)
         #if there was a change in graph, set current = self.start
         print(changed) 
+        
+        #don't think this part works properly
         if changed == True:
             dlite.km += dlite.heuristics(current,dlite.start)
             current = dlite.start
