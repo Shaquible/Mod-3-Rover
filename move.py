@@ -74,7 +74,7 @@ def turn(targetx, targety):
             #turns rover
             rover.send_command(0, angularv)
             #used for debugging
-            #print(rover.heading, target_head, i)
+            print(rover.heading, target_head, i)
         #stops over steer
         rover.send_command(0,-0.001*angularv)
         rover.send_command(0,0)

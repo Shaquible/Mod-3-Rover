@@ -17,7 +17,7 @@ def Main():
     
     grid_width = 51
     grid_height = 51
-    grid_res = 0.5
+    grid_res = 1
     #intializes grid and sets target position in array coordinates
     grid = [[0.0 for x in range(grid_width)] for y in range(grid_height)]
     startx = int((rover.x) / grid_res)
@@ -36,14 +36,14 @@ def Main():
     print(changed)
 
     #ignore this, mainly for testing
-    if changed == True:
+    """if changed == True:
         dlite.km += dlite.computeKeyheuristics(current,dlite.start)
         current = dlite.start
         for n in n_list:
             if(dlite.sensed[n[0]][n[1]] != dlite.world_grid[n[0]][n[1]]):
                 dlite.sensed[n[0]][n[1]] = dlite.world_grid[n[0]][n[1]]
                 dlite.update_vertex(n)
-        dlite.get_shortest_path()
+        dlite.get_shortest_path()"""
 
     path = [dlite.start] # list of path nodes for testing
     dlite.get_shortest_path()
