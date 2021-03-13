@@ -15,14 +15,14 @@ def Main():
     grid_height = 51
     grid_res = 0.5
     #intializes grid and sets target position in array coordinates
-    grid = Grid(grid_width, grid_height, grid_res, default_value=0.0)
+    grid = [[0.0 for x in range(grid_width)] for y in range(grid_height)]
     startx = int((rover.x) / grid_res)
     starty = int((rover.y) / grid_res)
     x_target = int((x_target) / grid_res)
     y_target = int((y_target) / grid_res)
     start_node = startx+ int(grid_width/2),starty+ int(grid_height/2)
     goal_node = x_target+ int(grid_width/2),y_target+int(grid_height/2)
-    dlite = DStar(start_node,goal_node,grid.array)
+    dlite = DStar(start_node,goal_node,grid)
 
     current = dlite.start
     sensed = dlite.sensed 
