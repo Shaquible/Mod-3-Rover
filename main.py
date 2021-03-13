@@ -1,17 +1,19 @@
 from qset_lib import Rover
-from grid import Grid
 import move
 import math
 import lidar
 from dstar import DStar
 import csvoutput
+import time
 
 
 def Main():
     rover = Rover()
+    rover.send_command(0,0)
+    time.sleep(0.1)
     #user adjustable perameters
-    x_target = 9
-    y_target = 6
+    x_target = 4
+    y_target = 4
     
     grid_width = 51
     grid_height = 51

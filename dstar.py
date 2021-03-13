@@ -1,7 +1,6 @@
 from qset_lib import Rover
 import lidar
 import math
-from grid import Grid
 from lidar import update_grid
 import heapq
 from priority import PriorityQueue
