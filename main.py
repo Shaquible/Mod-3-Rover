@@ -62,6 +62,7 @@ def Main():
         path.append(dlite.start) #add to path
                 #call update_grid
         changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
+        csvoutput.csv(grid)
         sensed.append(dlite.sensed)
         #if there was a change in graph, set current = self.start
         print(changed) 
@@ -73,7 +74,7 @@ def Main():
                     dlite.sensed[n[0]][n[1]] = dlite.world_grid[n[0]][n[1]]
                     dlite.update_vertex(n)
             dlite.get_shortest_path()
-        csvoutput.csv
+        
         dlite.get_shortest_path()
         print(path)
 Main()
