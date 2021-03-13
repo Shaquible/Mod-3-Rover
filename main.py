@@ -62,7 +62,7 @@ def Main():
         path.append(dlite.start) #add to path
                 #call update_grid
         changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid)
-        csvoutput.csv(grid)
+        csvoutput.read(grid, grid_height)
         sensed.append(dlite.sensed)
         #if there was a change in graph, set current = self.start
         print(changed) 
