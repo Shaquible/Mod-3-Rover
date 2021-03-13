@@ -5,6 +5,8 @@ import math
 import lidar
 from dstar import DStar
 import csvoutput
+
+
 def Main():
     rover = Rover()
     #user adjustable perameters

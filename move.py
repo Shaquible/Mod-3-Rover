@@ -1,6 +1,7 @@
 import math
 import time
 from qset_lib import Rover
+
 # will get next node in sequence from d*
 #use current position and target position to get neccacary heading
 #check current position against target to reach that position
@@ -27,6 +28,8 @@ def heading(x, y):
         heading = 180 - heading
         return heading
     return heading
+
+
 #turns in 3 steps each of decreasing speed and increasing precision
 def turn(targetx, targety):
     rover = Rover()
@@ -82,6 +85,7 @@ def turn(targetx, targety):
     time.sleep(0.2)
     return (delta_x, delta_y)
 
+
 def drive(targetx, targety, dx, dy):
     rover = Rover()
     #drives in 2 steps with decreasing speed once close enough to target
@@ -107,6 +111,7 @@ def drive(targetx, targety, dx, dy):
         rover.send_command(-0.00002, 0)
 
     return True
+
 
 def movement(targetx, targety):
     rover = Rover()
