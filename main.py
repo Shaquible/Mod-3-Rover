@@ -53,15 +53,14 @@ def Main():
     current = dlite.start
     sensed = dlite.sensed 
     n_list = dlite.sense_map(3)
-    print(changed)
 
     #ignore this, mainly for testing
     if changed == True:
         dlite.km += dlite.heuristics(current,dlite.start)
         current = dlite.start
         for n in n_list:
-            if(dlite.sensed[n[0]][n[1]] != dlite.world_grid[n[0]][n[1]]):
-                dlite.sensed[n[0]][n[1]] = dlite.world_grid[n[0]][n[1]]
+            if(dlite.sensed[n[0]][n[1]] != grid[n[0]][n[1]]):
+                dlite.sensed[n[0]][n[1]] = grid[n[0]][n[1]]
                 dlite.update_vertex(n)
         dlite.get_shortest_path()
 
@@ -100,8 +99,8 @@ def Main():
             current = dlite.start
             
             for n in n_list:
-                if(dlite.sensed[n[0]][n[1]] != dlite.world_grid[n[0]][n[1]]):
-                    dlite.sensed[n[0]][n[1]] = dlite.world_grid[n[0]][n[1]]
+                if(dlite.sensed[n[0]][n[1]] != grid[n[0]][n[1]]):
+                    dlite.sensed[n[0]][n[1]] = grid[n[0]][n[1]]
                     dlite.update_vertex(n)
             dlite.get_shortest_path()
         
