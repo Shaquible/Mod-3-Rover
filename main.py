@@ -9,8 +9,10 @@ import time
 
 def Main():
     rover = Rover()
+    #use the gazebo real time factor of your system under a standard gazebo load
+    time_fact = 0.75
     rover.send_command(0,0)
-    time.sleep(0.1)
+    time.sleep(2/15 * time_fact)
     #user adjustable perameters
     x_target = 5
     y_target = 3
@@ -29,7 +31,7 @@ def Main():
     dlite = DStar(start_node, goal_node, grid)
 
     rover.send_command(0, 50)
-    time.sleep(0.5)
+    time.sleep(2/3 * time_fact)
     changed = False
 
     # this will do a full 360 and scan the area around the rover
@@ -84,7 +86,7 @@ def Main():
         x = (dlite.start[0] - int(len(dlite.world_grid[0])/2)) * grid_res
         y = (dlite.start[1] - int(len(dlite.world_grid)/2)) * grid_res
         
-        move.movement(x,y)
+        move.movement(x,y, time_fact)
         path.append(dlite.start) #add to path
                 #call update_grid
         changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)

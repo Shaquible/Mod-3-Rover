@@ -31,7 +31,7 @@ def heading(x, y):
 
 
 #turns in 3 steps each of decreasing speed and increasing precision
-def turn(targetx, targety):
+def turn(targetx, targety, time_fact):
     rover = Rover()
     for i in range(3):
         #gathers target heading
@@ -40,11 +40,11 @@ def turn(targetx, targety):
         target_head = heading(delta_x, delta_y)
         #sets perameters for each turn step
         angularv = 2
-        wait = 0.5
+        wait = 2/3 * time_fact
         precision = 0
         if i == 1:
             angularv = 0.8
-            wait = 1
+            wait = 4/3 * time_fact
             precision = 1
         if i == 2:
             angularv = 0.1
@@ -82,7 +82,7 @@ def turn(targetx, targety):
         time.sleep(wait)
     delta_x = targetx - rover.x
     delta_y = targety - rover.y
-    time.sleep(0.2)
+    time.sleep(4/15 * time_fact)
     return (delta_x, delta_y)
 
 
@@ -114,11 +114,11 @@ def drive(targetx, targety, dx, dy):
     return True
 
 
-def movement(targetx, targety):
+def movement(targetx, targety, time_fact):
     rover = Rover()
     Drive = False
     while Drive == False:
-        dx, dy = turn(targetx, targety)
+        dx, dy = turn(targetx, targety, time_fact)
         Drive = drive(targetx, targety, dx, dy)
     #wait to see how far any oversteer went used for testing drive should be hashed off for actual use
     #time.sleep(2)
