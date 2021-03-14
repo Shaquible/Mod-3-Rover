@@ -93,11 +93,12 @@ def Main():
         sensed.append(dlite.sensed)
         #if there was a change in graph, set current = self.start
         print(changed) 
-        
+        n_list = dlite.sense_map(3)
         #don't think this part works properly
         if changed == True:
             dlite.km += dlite.heuristics(current,dlite.start)
             current = dlite.start
+            
             for n in n_list:
                 if(dlite.sensed[n[0]][n[1]] != dlite.world_grid[n[0]][n[1]]):
                     dlite.sensed[n[0]][n[1]] = dlite.world_grid[n[0]][n[1]]
