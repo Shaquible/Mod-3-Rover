@@ -12,11 +12,11 @@ def Main():
     rover.send_command(0,0)
     time.sleep(0.1)
     #user adjustable perameters
-    x_target = 0
-    y_target = 4
+    x_target = 5
+    y_target = 3
     
-    grid_width = 11
-    grid_height = 11
+    grid_width = 31
+    grid_height = 31
     grid_res = 1
     #intializes grid and sets target position in array coordinates
     grid = [[0.0 for x in range(grid_width)] for y in range(grid_height)]

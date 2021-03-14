@@ -95,7 +95,8 @@ def drive(targetx, targety, dx, dy):
             v = 0.2
         if j == 1:
             precision = 1
-            v = 0.01
+            v = 0.05
+            #0.01 deffinetly works
         
         if j == 0:
             precision = 0
