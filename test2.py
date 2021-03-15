@@ -1,3 +1,4 @@
-grid_wide = 33
-disp = int(grid_wide / 2)
-print (disp)
+from qset_lib import Rover
+import move
+rover = Rover()
+move.movement(1,1, 0.75)
