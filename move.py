@@ -47,7 +47,7 @@ def turn(targetx, targety, time_fact):
             wait = 4/3 * time_fact
             precision = 1
         if i == 2:
-            angularv = 0.07
+            angularv = 0.01
             precision = 3
             wait = 0
 
@@ -95,12 +95,12 @@ def drive(targetx, targety, dx, dy):
             v = 0.2
         if j == 1:
             precision = 1
-            v = 0.02
+            v = 0.01
             #0.01 deffinetly works
         
         if j == 0:
             precision = 0
-            v = 0.75
+            v = 1.2
         if targetx % 1 != 0 and targety % 1 != 0:
             precision = 1
           
