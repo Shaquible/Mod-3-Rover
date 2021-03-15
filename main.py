@@ -63,9 +63,10 @@ def Main():
         for n in n_list:
             if(dlite.sensed[n[0]][n[1]] != grid[n[0]][n[1]]):
                 dlite.sensed[n[0]][n[1]] = grid[n[0]][n[1]]
+                print(dlite.sensed[n[0]][n[1]])
                 dlite.update_vertex(n)
         dlite.get_shortest_path()
-
+    #dlite.update_vertex(current)
     path = [dlite.start] # list of path nodes for testing
     dlite.get_shortest_path()
     
@@ -95,7 +96,9 @@ def Main():
         #if there was a change in graph, set current = self.start
         print(changed) 
         n_list = dlite.sense_map(7)
-        #don't think this part works properly
+
+        #needs to also check whether a node in sensed doesnt match grid OR if changed
+        #how to do that without loop?
         if changed == True:
             dlite.km += dlite.heuristics(current,dlite.start)
             current = dlite.start
@@ -105,7 +108,7 @@ def Main():
                     dlite.sensed[n[0]][n[1]] = grid[n[0]][n[1]]
                     dlite.update_vertex(n)
             dlite.get_shortest_path()
-        
-        dlite.get_shortest_path()
-        print(path)
+    #dlite.update_vertex(current)
+    dlite.get_shortest_path()
+        #print(path)
 Main()
