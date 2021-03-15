@@ -30,18 +30,6 @@ def heading(x, y):
     return heading
 
 
-# finds the difference needed to turn from the heading to the target
-# find_difference(20, 30) = +10
-# find_difference(-20, -30) = -10
-# find_difference(-175, +175) = -10
-def find_difference(heading, target):
-    diff = target - heading
-    while diff > 90:
-        diff -= 180
-    while diff < -90:
-        diff += 180
-    return diff
-
 def turn(targetx, targety, time_fact):
     rover = Rover()
     diff = 100
@@ -50,11 +38,31 @@ def turn(targetx, targety, time_fact):
         delta_x = targetx - rover.x
         delta_y = targety - rover.y
         target_head = heading(delta_x, delta_y)
-        diff = find_difference(target_head, rover.heading)
-        turn_speed = (diff * math.pi / 180.0) * 1
-        rover.send_command(0, turn_speed)
-        print(rover.heading, target_head)
-        
+
+        diff = abs(target_head - rover.heading)
+        angularv = (diff * math.pi / 180.0) * 1
+
+        cw = 0
+        if rover.heading > 0 and target_head > 0:
+            if rover.heading > target_head:
+                angularv = -1 * abs(angularv)
+                cw = 1
+        if rover.heading < 0 and target_head < 0:
+            if abs(rover.heading) < abs(target_head):
+                cw = 1
+                angularv = -1 * abs(angularv)
+        if 0 < rover.heading < 90 and 0 > target_head > -90:
+            cw = 1
+            angularv = -1 * abs(angularv)
+        if rover.heading < -90 and target_head > 90:
+            angularv = -1 * abs(angularv)
+            cw = 1
+        if cw == 0:
+            angularv = abs(angularv)
+
+        rover.send_command(0, angularv)
+        print rover.heading, target_head
+
     rover.send_command(0, -0.00001)
     rover.send_command(0,0)
     return (delta_x, delta_y)
