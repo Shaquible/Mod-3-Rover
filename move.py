@@ -47,7 +47,7 @@ def turn(targetx, targety, time_fact):
             wait = 4/3 * time_fact
             precision = 1
         if i == 2:
-            angularv = 0.01
+            angularv = 0.03
             precision = 3
             wait = 0
 
