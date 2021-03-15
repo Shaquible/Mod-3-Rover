@@ -74,6 +74,8 @@ class DStar:
         #if the value at node u or s is inf (i.e obstacle is detected), cost is inf 
         if(self.sensed[x1][y1] == float('inf') or self.sensed[x2][y2] == float('inf')):
             return float('inf')
+        elif(self.sensed[x1][y1] == 2000 or self.sensed[x2][y2] == 2000):
+            return float(100000000000000)
         #if no obstacles, cost will be one
         else:
             return self.heuristics(u,s)

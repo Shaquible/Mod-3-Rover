@@ -14,8 +14,8 @@ def Main():
     rover.send_command(0,0)
     time.sleep(2/15 * time_fact)
     #user adjustable perameters
-    x_target = 5
-    y_target = 3
+    x_target = 8
+    y_target = 0
     
     grid_width = 31
     grid_height = 31
@@ -50,7 +50,7 @@ def Main():
     
     rover.send_command(0, -0.001)
     rover.send_command(0, 0)
-    time.sleep(0.1)
+    time.sleep(0.25)
     print changed
     csvoutput.read(grid)
     current = dlite.start
@@ -88,10 +88,12 @@ def Main():
         x = (dlite.start[0] - int(len(dlite.world_grid[0])/2)) * grid_res
         y = (dlite.start[1] - int(len(dlite.world_grid)/2)) * grid_res
         
-        move.movement(x,y, time_fact)
+        changed1 = move.movement(x,y, time_fact)
         path.append(dlite.start) #add to path
                 #call update_grid
-        changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
+        changed2 = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
+        if changed1 or changed2:
+            changed = True
         #csvoutput.read(grid)
         sensed.append(dlite.sensed)
         #if there was a change in graph, set current = self.start

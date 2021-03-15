@@ -35,8 +35,11 @@ def update_grid(x, y, heading, laser_distances, grid, grid_resolution):
         if old != new:
             for i in [-1,0,1]:
                 for j in [-1,0,1]:
+                    if (i != 0 or j != 0) and grid[grid_x + i][grid_y + j] == 0:
+                        grid[grid_x+i][grid_y+j] = 2000
                 #updates grid if there is a change
-                    grid[grid_x+i][grid_y+j] = new
+                    else:
+                        grid[grid_x][grid_y] = new
             made_changes = True
 
     return made_changes

@@ -32,15 +32,21 @@ def heading(x, y):
 
 def turn(targetx, targety, time_fact):
     rover = Rover()
+    changed = False
     diff = 100
          # the amount the rover's angle needs to change by
-    while abs(diff) > 0.005:
+    while abs(diff) > 0.05:
         delta_x = targetx - rover.x
         delta_y = targety - rover.y
         target_head = heading(delta_x, delta_y)
 
-        diff = abs(target_head - rover.heading)
-        angularv = (diff * math.pi / 180.0) * 1
+        diff = target_head - rover.heading
+        diff = (diff + 180) % 360 - 180
+        diff = abs(diff)
+
+        angularv = (diff * math.pi / 180.0) * 1.5
+        if angularv < 0.05:
+            angularv = 0.05
 
         cw = 0
         if rover.heading > 0 and target_head > 0:
@@ -62,10 +68,13 @@ def turn(targetx, targety, time_fact):
 
         rover.send_command(0, angularv)
         print rover.heading, target_head
+        just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
+        if just_changed:
+            changed = True
 
     rover.send_command(0, -0.00001)
     rover.send_command(0,0)
-    return (delta_x, delta_y)
+    return (delta_x, delta_y, changed)
 
 #turns in 3 steps each of decreasing speed and increasing precision
 def turn_old(targetx, targety, time_fact):
@@ -128,7 +137,9 @@ def turn_old(targetx, targety, time_fact):
 
 def drive(targetx, targety, dx, dy):
     rover = Rover()
+    changed = False
     #drives in 2 steps with decreasing speed once close enough to target
+    
     for j in range (2):
         if targetx % 1 != 0 and targety % 1 != 0:
             precision = 1
@@ -146,23 +157,38 @@ def drive(targetx, targety, dx, dy):
           
         #moves rover forward and checks how close it is to the target position
         while round(rover.x, precision) != round(targetx, precision) or round(rover.y, precision) != round(targety, precision):
+            dx = targetx - rover.x
+            dy = targety - rover.y
+            target_head = heading(dx,dy)
+            diff = target_head - rover.heading
+            diff = (diff + 180) % 360 - 180
+            diff = abs(diff)
+            #if diff > 2:
+                #return False  
             rover.send_command(v, 0)
             #for debugging
             print "driving with j=", j, ": ", (rover.x, rover.y), (targetx, targety)
+            just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
+            if just_changed:
+                changed = True
         rover.send_command(-0.00002, 0)
 
-    return True
+    return True, changed
 
 
 def movement(targetx, targety, time_fact):
     rover = Rover()
+    changed = False
     Drive = False
     while Drive == False:
-        dx, dy = turn(targetx, targety, time_fact)
-        Drive = drive(targetx, targety, dx, dy)
+        dx, dy, change1 = turn(targetx, targety, time_fact)
+        Drive, change2 = drive(targetx, targety, dx, dy)
+        if change1 or change2:
+            changed = True
     #wait to see how far any oversteer went used for testing drive should be hashed off for actual use
     #time.sleep(2)
     print rover.x,rover.y,rover.heading
+    return changed
 
 
 
