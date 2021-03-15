@@ -77,7 +77,7 @@ def turn(targetx, targety, time_fact):
             #turns rover
             rover.send_command(0, angularv)
             #used for debugging
-            print(rover.heading, target_head, i)
+            print "heading: ", rover.heading, ", target: ", target_head, ", turn step: ", i
         #stops over steer
         rover.send_command(0,-0.001*angularv)
         rover.send_command(0,0)
@@ -111,7 +111,7 @@ def drive(targetx, targety, dx, dy):
         while round(rover.x, precision) != round(targetx, precision) or round(rover.y, precision) != round(targety, precision):
             rover.send_command(v, 0)
             #for debugging
-            print(rover.x, rover.y, j, targetx, targety)
+            print "driving with j=", j, ": ", (rover.x, rover.y), (targetx, targety)
         rover.send_command(-0.00002, 0)
 
     return True
@@ -125,7 +125,7 @@ def movement(targetx, targety, time_fact):
         Drive = drive(targetx, targety, dx, dy)
     #wait to see how far any oversteer went used for testing drive should be hashed off for actual use
     #time.sleep(2)
-    print(rover.x,rover.y,rover.heading)
+    print rover.x,rover.y,rover.heading
 
 
 
