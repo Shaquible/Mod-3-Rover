@@ -43,6 +43,7 @@ def turn(targetx, targety, time_fact):
 		time.sleep(0.1)
 		diff = target_head - rover.heading
 
+    return (delta_x, delta_y)
 
 
 #turns in 3 steps each of decreasing speed and increasing precision
