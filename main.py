@@ -54,7 +54,7 @@ def Main():
     csvoutput.read(grid)
     current = dlite.start
     sensed = dlite.sensed 
-    n_list = dlite.sense_map(3)
+    n_list = dlite.sense_map(7)
 
     #ignore this, mainly for testing
     if changed == True:
@@ -94,7 +94,7 @@ def Main():
         sensed.append(dlite.sensed)
         #if there was a change in graph, set current = self.start
         print(changed) 
-        n_list = dlite.sense_map(3)
+        n_list = dlite.sense_map(7)
         #don't think this part works properly
         if changed == True:
             dlite.km += dlite.heuristics(current,dlite.start)
