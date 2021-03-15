@@ -33,7 +33,7 @@ def heading(x, y):
 #turns in 3 steps each of decreasing speed and increasing precision
 def turn(targetx, targety, time_fact):
     rover = Rover()
-    for i in range(3):
+    for i in range(4):
         #gathers target heading
         delta_x = targetx - rover.x
         delta_y = targety - rover.y
@@ -47,9 +47,12 @@ def turn(targetx, targety, time_fact):
             wait = 4/3 * time_fact
             precision = 1
         if i == 2:
-            angularv = 0.03
+            angularv = 0.2
             precision = 3
             wait = 0
+        if i == 3:
+            angularv = 0.1
+            precisioin = 3
 
         while round(rover.heading, precision) != round(target_head, precision):
             #tells rover which way to turn
