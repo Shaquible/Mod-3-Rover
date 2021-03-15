@@ -1,5 +1,6 @@
 import math
 import time
+import lidar
 from qset_lib import Rover
 
 # will get next node in sequence from d*
@@ -30,7 +31,7 @@ def heading(x, y):
     return heading
 
 
-def turn(targetx, targety, time_fact):
+def turn(targetx, targety, time_fact, grid, grid_res):
     rover = Rover()
     changed = False
     diff = 100
@@ -135,7 +136,7 @@ def turn_old(targetx, targety, time_fact):
     return (delta_x, delta_y)
 
 
-def drive(targetx, targety, dx, dy):
+def drive(targetx, targety, dx, dy, grid, grid_res):
     rover = Rover()
     changed = False
     #drives in 2 steps with decreasing speed once close enough to target
@@ -176,13 +177,13 @@ def drive(targetx, targety, dx, dy):
     return True, changed
 
 
-def movement(targetx, targety, time_fact):
+def movement(targetx, targety, time_fact, grid, grid_res):
     rover = Rover()
     changed = False
     Drive = False
     while Drive == False:
-        dx, dy, change1 = turn(targetx, targety, time_fact)
-        Drive, change2 = drive(targetx, targety, dx, dy)
+        dx, dy, change1 = turn(targetx, targety, time_fact, grid, grid_res)
+        Drive, change2 = drive(targetx, targety, dx, dy, grid, grid_res)
         if change1 or change2:
             changed = True
     #wait to see how far any oversteer went used for testing drive should be hashed off for actual use

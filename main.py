@@ -88,7 +88,7 @@ def Main():
         x = (dlite.start[0] - int(len(dlite.world_grid[0])/2)) * grid_res
         y = (dlite.start[1] - int(len(dlite.world_grid)/2)) * grid_res
         
-        changed1 = move.movement(x,y, time_fact)
+        changed1 = move.movement(x,y, time_fact, grid, grid_res)
         path.append(dlite.start) #add to path
                 #call update_grid
         changed2 = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
