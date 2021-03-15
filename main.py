@@ -50,6 +50,7 @@ def Main():
     
     rover.send_command(0, -0.001)
     rover.send_command(0, 0)
+    time.sleep(0.1)
     print changed
     csvoutput.read(grid)
     current = dlite.start
