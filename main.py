@@ -40,17 +40,17 @@ def Main():
         if just_changed:
             changed = True
         rover.send_command(0, 1)
-        print(rover.heading)
+        print rover.heading
     while rover.heading < 0:
         just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
         if just_changed:
             changed = True
         rover.send_command(0, 1)
-        print(rover.heading)
+        print rover.heading
     
     rover.send_command(0, -0.001)
     rover.send_command(0, 0)
-    print(changed)
+    print changed
     csvoutput.read(grid)
     current = dlite.start
     sensed = dlite.sensed 
@@ -63,7 +63,7 @@ def Main():
         for n in n_list:
             if(dlite.sensed[n[0]][n[1]] != grid[n[0]][n[1]]):
                 dlite.sensed[n[0]][n[1]] = grid[n[0]][n[1]]
-                print(dlite.sensed[n[0]][n[1]])
+                print dlite.sensed[n[0]][n[1]]
                 dlite.update_vertex(n)
         dlite.get_shortest_path()
     #dlite.update_vertex(current)
@@ -94,7 +94,7 @@ def Main():
         #csvoutput.read(grid)
         sensed.append(dlite.sensed)
         #if there was a change in graph, set current = self.start
-        print(changed) 
+        print changed 
         n_list = dlite.sense_map(7)
 
         #needs to also check whether a node in sensed doesnt match grid OR if changed
@@ -110,5 +110,5 @@ def Main():
             dlite.get_shortest_path()
     #dlite.update_vertex(current)
     dlite.get_shortest_path()
-        #print(path)
+        #print path
 Main()
