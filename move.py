@@ -32,7 +32,7 @@ def heading(x, y):
 
 def turn(targetx, targety, time_fact):
     rover = Rover()
-    diff = 10000000000
+    diff = 100
          # the amount the rover's angle needs to change by
     while abs(diff) > 0.005:
         delta_x = targetx - rover.x
