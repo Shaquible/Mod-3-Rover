@@ -30,8 +30,23 @@ def heading(x, y):
     return heading
 
 
-#turns in 3 steps each of decreasing speed and increasing precision
 def turn(targetx, targety, time_fact):
+	rover = Rover()
+	delta_x = targetx - rover.x
+	delta_y = targety - rover.y
+	target_head = heading(delta_x, delta_y)
+
+	diff = target_head - rover.heading     # the amount the rover's angle needs to change by
+	while abs(diff) > 0.1:
+		turn_speed = (diff * math.pi / 180.0) * 0.1
+		rover.send_command(0, turn_speed)
+		time.sleep(0.1)
+		diff = target_head - rover.heading
+
+
+
+#turns in 3 steps each of decreasing speed and increasing precision
+def turn_old(targetx, targety, time_fact):
     rover = Rover()
     for i in range(3):
         #gathers target heading
