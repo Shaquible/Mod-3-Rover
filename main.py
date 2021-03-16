@@ -8,6 +8,7 @@ import time
 
 
 def Main():
+    start = time.time()
     rover = Rover()
     #use the gazebo real time factor of your system under a standard gazebo load
     time_fact = 0.75
@@ -114,4 +115,7 @@ def Main():
     #dlite.update_vertex(current)
     dlite.get_shortest_path()
         #print path
+    end = time.time()
+    time_elasped = end - start
+    print("Time elasped: " + time_elasped)
 Main()
