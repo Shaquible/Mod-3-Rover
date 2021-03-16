@@ -55,7 +55,7 @@ def Main():
     print changed
     csvoutput.read(grid)
     current = dlite.start
-    sensed = dlite.sensed 
+    #sensed = dlite.sensed 
     n_list = dlite.sense_map(7)
 
     #ignore this, mainly for testing
@@ -96,14 +96,17 @@ def Main():
         if changed1 or changed2:
             changed = True
         #csvoutput.read(grid)
-        sensed.append(dlite.sensed)
+        #sensed.append(dlite.sensed)
         #if there was a change in graph, set current = self.start
         print changed 
+        in_sense = True
         n_list = dlite.sense_map(7)
-
-        #needs to also check whether a node in sensed doesnt match grid OR if changed
-        #how to do that without loop?
-        if changed == True:
+    
+        for n in n_list:
+            if(dlite.sensed[n[0]][n[1]] != grid[n[0]][n[1]]):
+                in_sense = False
+        #update edge costs near the rover's position
+        if changed == True or in_sense == False:
             dlite.km += dlite.heuristics(current,dlite.start)
             current = dlite.start
             
@@ -112,7 +115,7 @@ def Main():
                     dlite.sensed[n[0]][n[1]] = grid[n[0]][n[1]]
                     dlite.update_vertex(n)
             dlite.get_shortest_path()
-    #dlite.update_vertex(current)
+
     dlite.get_shortest_path()
         #print path
     end = time.time()
