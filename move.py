@@ -164,8 +164,10 @@ def drive(targetx, targety, grid, grid_res):
             diff = target_head - rover.heading
             diff = (diff + 180) % 360 - 180
             diff = abs(diff)
-            #if diff > 2:
-                #return False  
+            #this doesent really work and I dont know why
+            """if diff > 2:
+                sucsess = False
+                return sucsess, changed""" 
             rover.send_command(v, 0)
             #for debugging
             print "driving with j=", j, ": ", (rover.x, rover.y), (targetx, targety)
@@ -173,8 +175,8 @@ def drive(targetx, targety, grid, grid_res):
             if just_changed:
                 changed = True
         rover.send_command(-0.00002, 0)
-
-    return True, changed
+    sucsess = True
+    return sucsess, changed
 
 
 def movement(targetx, targety, time_fact, grid, grid_res):
