@@ -36,7 +36,7 @@ def turn(targetx, targety, time_fact, grid, grid_res):
     changed = False
     diff = 100
          # the amount the rover's angle needs to change by
-    while abs(diff) > 0.05:
+    while abs(diff) > 0.005:
         delta_x = targetx - rover.x
         delta_y = targety - rover.y
         target_head = heading(delta_x, delta_y)
@@ -75,8 +75,8 @@ def turn(targetx, targety, time_fact, grid, grid_res):
 
     rover.send_command(0, -0.00001)
     rover.send_command(0,0)
-    return (delta_x, delta_y, changed)
-
+    return changed
+    
 #turns in 3 steps each of decreasing speed and increasing precision
 def turn_old(targetx, targety, time_fact):
     rover = Rover()
@@ -136,7 +136,7 @@ def turn_old(targetx, targety, time_fact):
     return (delta_x, delta_y)
 
 
-def drive(targetx, targety, dx, dy, grid, grid_res):
+def drive(targetx, targety, grid, grid_res):
     rover = Rover()
     changed = False
     #drives in 2 steps with decreasing speed once close enough to target
@@ -182,8 +182,8 @@ def movement(targetx, targety, time_fact, grid, grid_res):
     changed = False
     Drive = False
     while Drive == False:
-        dx, dy, change1 = turn(targetx, targety, time_fact, grid, grid_res)
-        Drive, change2 = drive(targetx, targety, dx, dy, grid, grid_res)
+        change1 = turn(targetx, targety, time_fact, grid, grid_res)
+        Drive, change2 = drive(targetx, targety, grid, grid_res)
         if change1 or change2:
             changed = True
     #wait to see how far any oversteer went used for testing drive should be hashed off for actual use
