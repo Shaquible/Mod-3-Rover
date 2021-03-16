@@ -46,8 +46,8 @@ def turn(targetx, targety, time_fact, grid, grid_res):
         diff = abs(diff)
 
         angularv = (diff * math.pi / 180.0) * 1.5
-        if angularv < 0.05:
-            angularv = 0.05
+        if angularv < 0.1:
+            angularv = 0.1
 
         cw = 0
         if rover.heading > 0 and target_head > 0:
@@ -77,107 +77,44 @@ def turn(targetx, targety, time_fact, grid, grid_res):
     rover.send_command(0,0)
     return changed
     
-#turns in 3 steps each of decreasing speed and increasing precision
-def turn_old(targetx, targety, time_fact):
-    rover = Rover()
-    for i in range(4):
-        #gathers target heading
-        delta_x = targetx - rover.x
-        delta_y = targety - rover.y
-        target_head = heading(delta_x, delta_y)
-        #sets perameters for each turn step
-        angularv = 2
-        wait = 2/3 * time_fact
-        precision = 0
-        if i == 1:
-            angularv = 0.5
-            wait = 4/3 * time_fact
-            precision = 1
-        if i == 2:
-            angularv = 0.2
-            precision = 3
-            wait = 0
-        if i == 3:
-            angularv = 0.1
-            precisioin = 3
-
-        while round(rover.heading, precision) != round(target_head, precision):
-            #tells rover which way to turn
-            cw = 0
-            if rover.heading > 0 and target_head > 0:
-                if rover.heading > target_head:
-                    angularv = -1 * abs(angularv)
-                    cw = 1
-            if rover.heading < 0 and target_head < 0:
-                if abs(rover.heading) < abs(target_head):
-                    cw = 1
-                    angularv = -1 * abs(angularv)
-            if 0 < rover.heading < 90 and 0 > target_head > -90:
-                cw = 1
-                angularv = -1 * abs(angularv)
-            if rover.heading < -90 and target_head > 90:
-                angularv = -1 * abs(angularv)
-                cw = 1
-            if cw == 0:
-                angularv = abs(angularv)
-
-            #turns rover
-            rover.send_command(0, angularv)
-            #used for debugging
-            print "heading: ", rover.heading, ", target: ", target_head, ", turn step: ", i
-        #stops over steer
-        rover.send_command(0,-0.001*angularv)
-        rover.send_command(0,0)
-        #defines time to wait between angle computations to account for oversteer
-        time.sleep(wait)
-    delta_x = targetx - rover.x
-    delta_y = targety - rover.y
-    time.sleep(4/15 * time_fact)
-    return (delta_x, delta_y)
-
 
 def drive(targetx, targety, grid, grid_res):
     rover = Rover()
+    sucsess = False
     changed = False
-    #drives in 2 steps with decreasing speed once close enough to target
-    
-    for j in range (2):
-        if targetx % 1 != 0 and targety % 1 != 0:
-            precision = 1
-            v = 0.2
-        if j == 1:
-            precision = 1
-            v = 0.01
-            #0.01 deffinetly works
-        
-        if j == 0:
-            precision = 0
-            v = 0.75
-        if targetx % 1 != 0 and targety % 1 != 0:
-            precision = 1
-          
-        #moves rover forward and checks how close it is to the target position
-        while round(rover.x, precision) != round(targetx, precision) or round(rover.y, precision) != round(targety, precision):
-            dx = targetx - rover.x
-            dy = targety - rover.y
-            target_head = heading(dx,dy)
-            diff = target_head - rover.heading
-            diff = (diff + 180) % 360 - 180
-            diff = abs(diff)
-            #this doesent really work and I dont know why
-            """if diff > 2:
-                sucsess = False
-                return sucsess, changed""" 
-            rover.send_command(v, 0)
-            #for debugging
-            print "driving with j=", j, ": ", (rover.x, rover.y), (targetx, targety)
-            just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
-            if just_changed:
-                changed = True
-        rover.send_command(-0.00002, 0)
+    diff = 1000
+    while diff > 0.05:
+        #from prev drive to be a fail condition
+        #needs variables renamed
+        """dx = targetx - rover.x
+        dy = targety - rover.y
+        target_head = heading(dx,dy)
+        diff = target_head - rover.heading
+        diff = (diff + 180) % 360 - 180
+        diff = abs(diff)
+        #this doesent really work and I dont know why
+        if diff > 2:
+            sucsess = False
+            return sucsess, changed"""
+        #computed distance left to drive
+        y_diff = targety - rover.y
+        x_diff = targetx - rover.x
+        diff = math.sqrt(x_diff ** 2 + y_diff ** 2)
+        #speed is a fn of the distance
+        speed = diff * 0.75
+        #sets max speed
+        if speed > 1.5:
+            speed = 1.5
+        rover.send_command(speed, 0)
+        print "driving from: ", (rover.x, rover.y), "to", (targetx, targety)
+        #updates grid as its driving
+        just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
+        if just_changed:
+            changed = True
+    rover.send_command(-0.00001,0)
+    rover.send_command(0,0)
     sucsess = True
     return sucsess, changed
-
 
 def movement(targetx, targety, time_fact, grid, grid_res):
     rover = Rover()

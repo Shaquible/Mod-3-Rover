@@ -116,6 +116,7 @@ def Main():
     dlite.get_shortest_path()
         #print path
     end = time.time()
-    time_elasped = end - start
+    time_elasped = str(end - start)
     print("Time elasped: " + time_elasped)
+    csvoutput.read(grid)
 Main()
