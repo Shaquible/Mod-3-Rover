@@ -20,7 +20,7 @@ def Main():
     
     grid_width = 31
     grid_height = 31
-    grid_res = 1
+    grid_res = 0.5
     #intializes grid and sets target position in array coordinates
     grid = [[0.0 for x in range(grid_width)] for y in range(grid_height)]
     startx = int((rover.x) / grid_res)
