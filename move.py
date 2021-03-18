@@ -83,23 +83,16 @@ def drive(targetx, targety, grid, grid_res):
     sucsess = False
     changed = False
     diff = 1000
+    last_diff = 1100
     while diff > 0.05:
-        #from prev drive to be a fail condition
-        #needs variables renamed
-        """dx = targetx - rover.x
-        dy = targety - rover.y
-        target_head = heading(dx,dy)
-        diff = target_head - rover.heading
-        diff = (diff + 180) % 360 - 180
-        diff = abs(diff)
-        #this doesent really work and I dont know why
-        if diff > 2:
-            sucsess = False
-            return sucsess, changed"""
         #computed distance left to drive
         y_diff = targety - rover.y
         x_diff = targetx - rover.x
         diff = math.sqrt(x_diff ** 2 + y_diff ** 2)
+        if diff > last_diff:
+            sucsess = True
+            return sucsess, changed
+        last_diff = diff
         #speed is a fn of the distance
         speed = diff * 0.75
         #sets max speed
