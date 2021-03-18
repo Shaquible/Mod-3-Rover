@@ -62,7 +62,7 @@ def Main():
     rover.send_command(0, 0)
     time.sleep(0.25)
     print changed
-    csvoutput.read(grid)
+    csvoutput.read(grid, 'grid')
     current = dlite.start
     #sensed = dlite.sensed 
     n_list = dlite.sense_map(7)
@@ -126,9 +126,9 @@ def Main():
             dlite.get_shortest_path()
 
     dlite.get_shortest_path()
-        #print path
+    csvoutput.read(path, 'path')
     end = time.time()
     time_elasped = int(str(end - start))
     print("Time elasped: " + time_elasped + " seconds")
-    csvoutput.read(grid)
+    csvoutput.read(grid, 'grid')
 Main()
