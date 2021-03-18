@@ -15,8 +15,17 @@ def Main():
     rover.send_command(0,0)
     time.sleep(2/15 * time_fact)
     #user adjustable perameters
-    x_target = 8
-    y_target = 0
+    while True:
+        try:
+            x_target = int(input("Please Enter your x target: "))
+            y_target = int(input("Please Enter your y target: "))
+        except NameError:                                                  
+            print("That was not a valid input, try again ")
+            continue
+        else:
+            break
+    #x_target = 8
+    #y_target = 0
     
     grid_width = 31
     grid_height = 31
@@ -119,7 +128,7 @@ def Main():
     dlite.get_shortest_path()
         #print path
     end = time.time()
-    time_elasped = str(end - start)
-    print("Time elasped: " + time_elasped)
+    time_elasped = int(str(end - start))
+    print("Time elasped: " + time_elasped + " seconds")
     csvoutput.read(grid)
 Main()
