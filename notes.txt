@@ -1,2 +1,0 @@
-possibly index further into the node queue to smooth path
-add capability to drive rover to actual target x and y once the goal node is reached
