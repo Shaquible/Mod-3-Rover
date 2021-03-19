@@ -27,9 +27,9 @@ def Main():
     #x_target = 8
     #y_target = 0
     
-    grid_width = 31
-    grid_height = 31
-    grid_res = 0.5
+    grid_width = 99
+    grid_height = 99
+    grid_res = 1
     #intializes grid and sets target position in array coordinates
     grid = [[0.0 for x in range(grid_width)] for y in range(grid_height)]
     startx = int((rover.x) / grid_res)
@@ -128,7 +128,7 @@ def Main():
     dlite.get_shortest_path()
     csvoutput.read(path, 'path')
     end = time.time()
-    time_elasped = int(str(end - start))
+    time_elasped = str(end - start)
     print("Time elasped: " + time_elasped + " seconds")
     csvoutput.read(grid, 'grid')
 Main()

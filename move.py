@@ -89,8 +89,8 @@ def drive(targetx, targety, grid, grid_res):
         y_diff = targety - rover.y
         x_diff = targetx - rover.x
         diff = math.sqrt(x_diff ** 2 + y_diff ** 2)
-        if diff > last_diff:
-            sucsess = True
+        if round(diff, 5) > round(last_diff,5):
+            sucsess = False
             return sucsess, changed
         last_diff = diff
         #speed is a fn of the distance
