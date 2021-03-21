@@ -27,8 +27,8 @@ def Main():
     #x_target = 8
     #y_target = 0
     
-    grid_width = 199
-    grid_height = 199
+    grid_width = 99
+    grid_height = 99
     grid_res = 1
     #intializes grid and sets target position in array coordinates
     grid = [[0.0 for x in range(grid_width)] for y in range(grid_height)]
