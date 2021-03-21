@@ -24,8 +24,8 @@ def Main():
             continue
         else:
             break
-    #x_target = 8
-    #y_target = 0
+    #x_target = -6
+    #y_target = -6
     
     grid_width = 99
     grid_height = 99
@@ -60,7 +60,7 @@ def Main():
     
     rover.send_command(0, -0.001)
     rover.send_command(0, 0)
-    time.sleep(0.25)
+    time.sleep(1)
     print changed
     csvoutput.read(grid, 'grid')
     current = dlite.start
