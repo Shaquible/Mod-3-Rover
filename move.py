@@ -30,7 +30,7 @@ def heading(x, y):
         return heading
     return heading
 
-
+#turns the rover to a target heading that will lead to the next node
 def turn(targetx, targety, time_fact, grid, grid_res):
     rover = Rover()
     changed = False
@@ -44,11 +44,11 @@ def turn(targetx, targety, time_fact, grid, grid_res):
         diff = target_head - rover.heading
         diff = (diff + 180) % 360 - 180
         diff = abs(diff)
-
+        #sets velocity to a function of difference in heading and has a min velocity
         angularv = (diff * math.pi / 180.0) * 1.5
         if angularv < 0.1:
             angularv = 0.1
-
+        #cumputes whether to turn clockwise or counter clockwise
         cw = 0
         if rover.heading > 0 and target_head > 0:
             if rover.heading > target_head:
@@ -69,6 +69,7 @@ def turn(targetx, targety, time_fact, grid, grid_res):
 
         rover.send_command(0, angularv)
         print rover.heading, target_head
+        #updates grid
         just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
         if just_changed:
             changed = True
@@ -77,22 +78,22 @@ def turn(targetx, targety, time_fact, grid, grid_res):
     rover.send_command(0,0)
     return changed
     
-
+#drives the rover to a target node
 def drive(targetx, targety, grid, grid_res):
     rover = Rover()
     sucsess = False
     changed = False
     diff = 1000
-    last_diff = 1100
     while diff > 0.05:
         #computed distance left to drive
         y_diff = targety - rover.y
         x_diff = targetx - rover.x
         diff = math.sqrt(x_diff ** 2 + y_diff ** 2)
-        """if round(diff, 5) > round(last_diff, 5):
+        #computes weather the rover has gone too far and will not reach the node
+        if round(diff, 5) > 1.5 * grid_res:
             sucsess = False
-            return sucsess, changed"""
-        last_diff = diff
+            return sucsess, changed
+        
         #speed is a fn of the distance
         speed = diff * 0.75
         #sets max speed
@@ -108,7 +109,7 @@ def drive(targetx, targety, grid, grid_res):
     rover.send_command(0,0)
     sucsess = True
     return sucsess, changed
-
+#moves the rover to the rarget by turning then driving and checks the lidar array during the drive process
 def movement(targetx, targety, time_fact, grid, grid_res):
     rover = Rover()
     changed = False
