@@ -118,8 +118,6 @@ def movement(targetx, targety, time_fact, grid, grid_res):
         Drive, change2 = drive(targetx, targety, grid, grid_res)
         if change1 or change2:
             changed = True
-    #wait to see how far any oversteer went used for testing drive should be hashed off for actual use
-    #time.sleep(2)
     print rover.x,rover.y,rover.heading
     return changed
 
