@@ -24,8 +24,6 @@ def Main():
             continue
         else:
             break
-    #x_target = -6
-    #y_target = -6
     
     grid_width = 99
     grid_height = 99
