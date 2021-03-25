@@ -62,23 +62,23 @@ def Main():
     print changed
     csvoutput.read(grid, 'grid')
     current = dlite.start
-    #sensed = dlite.sensed 
     n_list = dlite.sense_map(7)
 
-    #ignore this, mainly for testing
+    #updates nodes near rover if affected by obstacles
     if changed == True:
         dlite.km += dlite.heuristics(current,dlite.start)
         current = dlite.start
+        #records change in sensed map
         for n in n_list:
             if(dlite.sensed[n[0]][n[1]] != grid[n[0]][n[1]]):
                 dlite.sensed[n[0]][n[1]] = grid[n[0]][n[1]]
                 print dlite.sensed[n[0]][n[1]]
                 dlite.update_vertex(n)
         dlite.get_shortest_path()
-    #dlite.update_vertex(current)
     path = [dlite.start] # list of path nodes for testing
     dlite.get_shortest_path()
     
+    #run until goal is reached
     while dlite.start != dlite.goal:
         
         #change start to neighbouring node with lowest cost
@@ -102,13 +102,12 @@ def Main():
         changed2 = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
         if changed1 or changed2:
             changed = True
-        #csvoutput.read(grid)
-        #sensed.append(dlite.sensed)
-        #if there was a change in graph, set current = self.start
         print changed 
+        
+        #update nodes near rover's current position if obstacles are detected
         in_sense = True
         n_list = dlite.sense_map(7)
-    
+
         for n in n_list:
             if(dlite.sensed[n[0]][n[1]] != grid[n[0]][n[1]]):
                 in_sense = False
@@ -122,7 +121,7 @@ def Main():
                     dlite.sensed[n[0]][n[1]] = grid[n[0]][n[1]]
                     dlite.update_vertex(n)
             dlite.get_shortest_path()
-
+    
     dlite.get_shortest_path()
     csvoutput.read(path, 'path')
     end = time.time()
