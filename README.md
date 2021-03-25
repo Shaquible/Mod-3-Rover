@@ -7,4 +7,4 @@ This is an implementation of the D* Lite algorithm for autonomous rover path pla
 3. Run main.py
 4. When prompted, enter a target x position that is within half of the grid width. Then enter a target y position that is within half of the grid height. These values can be either negative or positive.
 
-In order to customize the grid size, change the grid_width and grid_height variables to equal any odd numbered positive integer. The resolution of the grid can also be changed in by varying the grid_res variable to any positive real number. 
+In order to customize the grid size, change the grid_width and grid_height variables to equal any odd numbered positive integer. The resolution of the grid can also be changed by varying the grid_res variable to any positive real number. 
