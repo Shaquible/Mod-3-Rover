@@ -69,6 +69,7 @@ def turn(targetx, targety, time_fact, grid, grid_res):
 
         rover.send_command(0, angularv)
         print rover.heading, target_head
+        print "Turning from: ", (rover.heading), "to", (target_head)
         #updates grid
         just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
         if just_changed:
@@ -100,7 +101,7 @@ def drive(targetx, targety, grid, grid_res):
         if speed > 1.5:
             speed = 1.5
         rover.send_command(speed, 0)
-        print "driving from: ", (rover.x, rover.y), "to", (targetx, targety)
+        print "Driving from: ", (rover.x, rover.y), "to", (targetx, targety)
         #updates grid as its driving
         just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
         if just_changed:
