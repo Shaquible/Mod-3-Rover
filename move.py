@@ -68,7 +68,6 @@ def turn(targetx, targety, time_fact, grid, grid_res):
             angularv = abs(angularv)
 
         rover.send_command(0, angularv)
-        print rover.heading, target_head
         print "Turning from: ", (rover.heading), "to", (target_head)
         #updates grid
         just_changed = lidar.update_grid(rover.x, rover.y, rover.heading, rover.laser_distances, grid, grid_res)
@@ -90,11 +89,6 @@ def drive(targetx, targety, grid, grid_res):
         y_diff = targety - rover.y
         x_diff = targetx - rover.x
         diff = math.sqrt(x_diff ** 2 + y_diff ** 2)
-        #computes weather the rover has gone too far and will not reach the node
-        if round(diff, 5) > 1.5 * grid_res:
-            sucsess = False
-            return sucsess, changed
-        
         #speed is a fn of the distance
         speed = diff * 0.75
         #sets max speed
